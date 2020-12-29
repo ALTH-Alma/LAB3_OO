@@ -4,14 +4,13 @@ package _TDAs;
 public class Usuario {
 
 	// TODO Se define la clase usuario: cada usuario posee un nombre, una  contraseña y una reputación.
-	String name;
-	String pass;
-	int reputacion;
+	private String name;
+	private String pass;
+	private int reputacion;
 	
 	//TODO se crea el constructor.
 	
 	public Usuario(String name, String pass, int reputacion) {
-		super();
 		this.name = name;
 		this.pass = pass;
 		this.reputacion = reputacion;
@@ -44,11 +43,5 @@ public class Usuario {
 		this.reputacion = reputacion;
 	}
 
-	
-
-	public static void main(String[] args) {
-		// TODO Esbozo de método generado automáticamente
-
-	}
 
 }
