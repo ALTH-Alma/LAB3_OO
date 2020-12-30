@@ -9,5 +9,6 @@ public class Respuesta extends Comun_Res_Preg {
 		setId(++count1);
 		this.estado = "Pendiente.";
 	}
+	
 
 }

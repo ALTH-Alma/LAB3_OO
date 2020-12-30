@@ -87,6 +87,17 @@ public class Comun_Res_Preg {
 		this.reportes = reportes;
 	}
 	
-	
+	public void mostrarComun() {
+		
+		System.out.println("ID: "+id);
+		System.out.println("Contenido:\n "+contenido);
+		System.out.println("Autor: "+autor);
+		System.out.println("Fcha publicación: "+fechaDePublicacion);
+		System.out.println("Estado: "+estado);
+		System.out.println("Votos a favor: "+votosAFavor);
+		System.out.println("Votos en contra: "+votosEnContra);
+		System.out.println("Número de reportes: "+reportes+"\n");
+		
+	}
 
 }

@@ -2,8 +2,8 @@ package _TDAs;
 
 public class Etiqueta {
 	
-	String name;
-	String descripcion;
+	public String name;
+	public String descripcion;
 	
 	//Constructor.
 	public Etiqueta(String name, String descripcion) {
@@ -29,8 +29,10 @@ public class Etiqueta {
 		this.descripcion = descripcion;
 	}
 	
-	
-	
+	public void mostrarEtiqueta() {
+		System.out.println(name+":");
+		System.out.println(descripcion+"\n");
+	}
 	
 
 }
