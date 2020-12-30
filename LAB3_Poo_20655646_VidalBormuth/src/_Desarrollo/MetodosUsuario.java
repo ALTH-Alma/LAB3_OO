@@ -7,6 +7,7 @@ import java.util.List;
 
 import _TDAs.Etiqueta;
 import _TDAs.Respuesta;
+import _TDAs.Stack;
 import _TDAs.Pregunta;
 
 public class MetodosUsuario {
@@ -14,16 +15,23 @@ public class MetodosUsuario {
 	public static void main(String[] args) {
 		// TODO Pruebas
 		
-		Usuario alma= new Usuario("Alma", "Alma1234", 20);
-		System.out.println("El nombre del usuario 1 es: " + alma.getName());
-		System.out.println("La contraseña del usuario es: " + alma.getPass());
-		System.out.println("La reputación del usuario es: " + alma.getReputacion());
+		Usuario u1= new Usuario("Alma", "Alma1234", 20);
+		Usuario u2= new Usuario("Ana", "A234", 26);
+		Usuario u3= new Usuario("Sam", "samvid", 10);
+		Usuario u4= new Usuario("Pedro", "P200", 34);
+	
+		List<Usuario> us1;
+		us1= new ArrayList<>();
+		us1.add(u1);
+		us1.add(u2);
+		us1.add(u3);
+		us1.add(u4);
 		
-		alma.mostrarUsuario();
+		u1.mostrarUsuario();
 		
-		alma.setReputacion(alma.getReputacion() + 25);
+		u1.setReputacion(u1.getReputacion() + 25);
 		
-		System.out.println(alma.getReputacion());
+		System.out.println(u1.getReputacion());
 		
 		Etiqueta et1= new Etiqueta("Java", " java es un lenguaje de programación basado en el paradigma orientado a objetos.");
 		System.out.println("la nueva etiqueta es: " + et1.getName() + et1.getDescripcion());
@@ -53,25 +61,39 @@ public class MetodosUsuario {
         //r3.mostrarComun();
 		
         
-//		List<Respuesta> res1;
-//		
-//		res1 = new ArrayList<Respuesta>();
-//		
-//		res1.add(r2);
-//		res1.add(r1);
-//		res1.add(r3);
-//		
-//        for(int i=0;i<res1.size();i++){
-//            res1.get(i).mostrarComun();
-//        }
+		List<Respuesta> res1;
+		
+		res1 = new ArrayList<Respuesta>();
+		
+		res1.add(r2);
+		res1.add(r1);
+		res1.add(r3);
+		
+        for(int i=0;i<res1.size();i++){
+            res1.get(i).mostrarComun();
+        }
         System.out.println("____________________________________________");
         Pregunta p1= new Pregunta("Fabian", "¿Esta clase funciona correctamente?","Esta pregunta es una prueba para comprobar funcionalidades.", ets1);
         p1.getRespuestas().add(r1);
         p1.getRespuestas().add(r2);
         
-        p1.mostrarComun();
+        Pregunta p2= new Pregunta("Tomas", "¿Pregunta 2?","Esta pregunta es una prueba para comprobar funcionalidades.", ets1);
+        p2.getRespuestas().add(r3);
+        p2.getRespuestas().add(r2);
         
+        p2.mostrarComun();
         
+		List<Pregunta> pre1;
+		
+		pre1 = new ArrayList<>();
+		
+		pre1.add(p1);
+		pre1.add(p2);
+
+        System.out.println("____________________________________________");
+        Stack s1= new Stack(us1, pre1);
+        
+        s1.mostrarStack();
 	}
 
 }
