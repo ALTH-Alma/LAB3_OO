@@ -1,28 +1,92 @@
 package _TDAs;
 
 import java.util.Date;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Comun_Res_Preg {
 	
-	private static int id = 0;
+	public int id;
 	private String autor;
+	private String contenido;
 	private Date fechaDePublicacion;
+	protected String estado;
 	private int votosAFavor;
 	private int votosEnContra;
 	private int reportes;
-	private List<Etiqueta> etiquetas;
 	
-	public Comun_Res_Preg(String autor, Date fechaDePublicacion, int votosAFavor, int votosEnContra, int reportes,
-			List<Etiqueta> etiquetas) {
-		super();
+	public Comun_Res_Preg(String autor, String contenido) {
+		
 		this.autor = autor;
+		this.contenido = contenido;
 		fechaDePublicacion = new Date();
-		this.votosAFavor = votosAFavor;
-		this.votosEnContra = votosEnContra;
-		this.reportes = reportes;
-		etiquetas = new ArrayList<>();
+		this.votosAFavor = 0;
+		this.votosEnContra = 0;
+		this.reportes = 0;
 	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getAutor() {
+		return autor;
+	}
+
+	public void setAutor(String autor) {
+		this.autor = autor;
+	}
+
+	public String getContenido() {
+		return contenido;
+	}
+
+	public void setContenido(String contenido) {
+		this.contenido = contenido;
+	}
+
+	public Date getFechaDePublicacion() {
+		return fechaDePublicacion;
+	}
+
+	public void setFechaDePublicacion(Date fechaDePublicacion) {
+		this.fechaDePublicacion = fechaDePublicacion;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+	public int getVotosAFavor() {
+		return votosAFavor;
+	}
+
+	public void setVotosAFavor(int votosAFavor) {
+		this.votosAFavor = votosAFavor;
+	}
+
+	public int getVotosEnContra() {
+		return votosEnContra;
+	}
+
+	public void setVotosEnContra(int votosEnContra) {
+		this.votosEnContra = votosEnContra;
+	}
+
+	public int getReportes() {
+		return reportes;
+	}
+
+	public void setReportes(int reportes) {
+		this.reportes = reportes;
+	}
+	
+	
 
 }
