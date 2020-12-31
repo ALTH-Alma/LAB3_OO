@@ -56,10 +56,10 @@ public class Stack {
             usuarios.get(i).mostrarUsuario();
         }
         
-//		System.out.println("Preguntas");
-//        for(int i=0;i<preguntas.size();i++){
-//            preguntas.get(i).mostrarComun();
-//        }
+		System.out.println("Preguntas");
+        for(int i=0;i<preguntas.size();i++){
+            preguntas.get(i).mostrarComun();
+        }
 		
 	}
 	
@@ -95,6 +95,7 @@ public class Stack {
 	}
 	
 	public void logout(String userName, String userPass) {
+
 		if(usuarioActivo != null && usuarioActivo.getName().equals(userName) && usuarioActivo.getPass().equals(userPass)) {
 			usuarioActivo = null;
 			System.out.println("El usuario ah cerrado sesión.");
@@ -102,5 +103,19 @@ public class Stack {
 		System.out.println("No existe usuario activo para cerrar sesión.");
 		}
 	}
+	
+	public void ask(String newTitulo, String newContenido, List<Etiqueta> newEtiquetas) {
+		
+		if(usuarioActivo != null) {
+			Pregunta pregunta = new Pregunta(usuarioActivo.getName(), newTitulo, newContenido, newEtiquetas);
+			preguntas.add(pregunta);
+			System.out.println("Se a agregado una nueva pregunta.");
+		}else {
+			System.out.println("No existe usuario activo para realizar la pregunta.");
+		}
+	}
+	
+	
+	
 
 }
