@@ -15,10 +15,10 @@ public class MetodosUsuario {
 	public static void main(String[] args) {
 		// TODO Pruebas
 		
-		Usuario u1= new Usuario("Alma", "Alma1234", 20);
-		Usuario u2= new Usuario("Ana", "A234", 26);
-		Usuario u3= new Usuario("Sam", "samvid", 10);
-		Usuario u4= new Usuario("Pedro", "P200", 34);
+		Usuario u1= new Usuario("Alma", "Alma1234");
+		Usuario u2= new Usuario("Ana", "A234");
+		Usuario u3= new Usuario("Sam", "samvid");
+		Usuario u4= new Usuario("Pedro", "P200");
 	
 		List<Usuario> us1;
 		us1= new ArrayList<>();
@@ -93,6 +93,18 @@ public class MetodosUsuario {
         System.out.println("____________________________________________");
         Stack s1= new Stack(us1, pre1);
         
+        s1.mostrarStack();
+        
+        System.out.println("____________________________________________");
+        s1.register("ana", "Pamela123");
+        
+        s1.mostrarStack();
+        
+        System.out.println("____________________________________________");
+        s1.login("Alma", "Alma1234");
+        
+        s1.mostrarStack();
+        s1.logout("Alma", "Alma1234");
         s1.mostrarStack();
 	}
 

@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Comun_Res_Preg {
 	
-	public int id;
+	private int id;
 	private String autor;
 	private String contenido;
 	private Date fechaDePublicacion;

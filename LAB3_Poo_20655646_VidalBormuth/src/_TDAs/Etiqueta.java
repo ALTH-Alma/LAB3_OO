@@ -2,8 +2,8 @@ package _TDAs;
 
 public class Etiqueta {
 	
-	public String name;
-	public String descripcion;
+	private String name;
+	private String descripcion;
 	
 	//Constructor.
 	public Etiqueta(String name, String descripcion) {

@@ -10,10 +10,10 @@ public class Usuario {
 	
 	//TODO se crea el constructor.
 	
-	public Usuario(String name, String pass, int reputacion) {
+	public Usuario(String name, String pass) {
 		this.name = name;
 		this.pass = pass;
-		this.reputacion = reputacion;
+		this.reputacion = 0;
 	}
 
 	//Getter y Setter para nombre de usuario.

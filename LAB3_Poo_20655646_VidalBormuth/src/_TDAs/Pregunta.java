@@ -7,11 +7,11 @@ import java.util.List;
 public class Pregunta extends Comun_Res_Preg {
 	
 	private static int count2 = 0;
-	public String titulo;
-	public String autorRecompensa;
-	public int montoRecompensa;
-	public List<Etiqueta> etiquetas;
-	public List<Respuesta> respuestas;
+	private String titulo;
+	private String autorRecompensa;
+	private int montoRecompensa;
+	private List<Etiqueta> etiquetas;
+	private List<Respuesta> respuestas;
 
 	public Pregunta(String autor, String titulo, String contenido, List<Etiqueta> etiquetas) {
 		super(autor, contenido);
