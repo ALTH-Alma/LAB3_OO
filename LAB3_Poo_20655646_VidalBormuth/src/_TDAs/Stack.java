@@ -1,17 +1,24 @@
 package _TDAs;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Stack {
 	
+	private static int count3 = 0;
+	private int idStack;
 	private Usuario usuarioActivo;
 	private List<Usuario> usuarios;
 	private List<Pregunta> preguntas;
+	private List<Etiqueta> etiquetas;
 	
-	public Stack(List<Usuario> usuarios, List<Pregunta> preguntas) {
+	public Stack(List<Usuario> usuarios, List<Pregunta> preguntas, List<Etiqueta> etiquetas) {
 		this.usuarioActivo = null;
 		this.usuarios = usuarios;
 		this.preguntas = preguntas;
+		this.etiquetas = etiquetas;
+		setIdStack(++count3);
 	}
 	
 	public Stack(Usuario usuarioA, List<Usuario> usuarios, List<Pregunta> preguntas) {
@@ -20,6 +27,16 @@ public class Stack {
 		this.preguntas = preguntas;
 	}
 
+	
+	public int getIdStack() {
+		return idStack;
+	}
+
+	public void setIdStack(int idStack) {
+		this.idStack = idStack;
+	}
+
+	
 	public Usuario getUsuarioActivo() {
 		return usuarioActivo;
 	}
@@ -46,21 +63,46 @@ public class Stack {
 	
 	public void mostrarStack() {
 		
-		System.out.println("Stack Overflow:\n\n Usuario Activo:");
+		System.out.println("Stack Overflow "+idStack+":\n\n Usuario Activo:");
 		if(usuarioActivo != null) {
 			usuarioActivo.mostrarUsuario();
 		}
 		
-		System.out.println("Usuarios");
+		System.out.println("________________Usuarios__________________");
         for(int i=0;i<usuarios.size();i++){
             usuarios.get(i).mostrarUsuario();
         }
         
-		System.out.println("Preguntas");
+		System.out.println("_________________Preguntas__________________");
         for(int i=0;i<preguntas.size();i++){
             preguntas.get(i).mostrarComun();
         }
 		
+	}
+	
+	public List<Etiqueta> mostrarYSeleccionarEtiquetasStack() {
+		
+		System.out.println("Etiquetas en Stack Overflow"+idStack);
+		if(etiquetas != null) {
+	        for(int i=0;i<etiquetas.size();i++){
+				System.out.println("Etiqueta"+i+":");
+	            etiquetas.get(i).mostrarEtiqueta();
+	        }
+	
+	        List<Etiqueta> newList; newList = new ArrayList<>();
+	        Scanner seleccion = new Scanner(System.in);
+	        int numero = 0;
+
+	        System.out.println("Por favor introduzca el o los números correspondientes a la etiqueta que desea agregar. Para finalizar la eleccion introduzca un -1");
+
+	        do {			
+	        	numero = seleccion.nextInt();
+	        	newList.add(etiquetas.get(numero));
+	        } while (numero!=-1);
+	        
+	        return newList;
+		}
+		return null;
 	}
 	
 	private Usuario getUser(String newUserName) {
@@ -115,7 +157,6 @@ public class Stack {
 		}
 	}
 	
-	
-	
+
 
 }

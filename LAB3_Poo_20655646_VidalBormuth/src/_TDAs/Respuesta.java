@@ -10,5 +10,13 @@ public class Respuesta extends Comun_Res_Preg {
 		this.estado = "Pendiente.";
 	}
 	
+	@Override
+	public void mostrarComun() {
+		
+		System.out.println("ID Respuesta: "+id);
+		super.mostrarComun();	
+		System.out.println("\n");
+	}
+	
 
 }

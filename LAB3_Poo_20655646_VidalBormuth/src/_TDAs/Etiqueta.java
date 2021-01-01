@@ -10,7 +10,7 @@ public class Etiqueta {
 		this.name = name;
 		this.descripcion = descripcion;
 	}
-
+	
 	//Getter y Setter del nombre de la etiqueta.
 	public String getName() {
 		return name;

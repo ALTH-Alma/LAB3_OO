@@ -65,9 +65,10 @@ public class Pregunta extends Comun_Res_Preg {
 	}
 	@Override
 	public void mostrarComun() {
-		super.mostrarComun();
 		
+		System.out.println("ID Pregunta: "+id);
 		System.out.println("Titulo: "+titulo);
+		super.mostrarComun();
 		System.out.println("Recompensa: "+autorRecompensa+"\n"+montoRecompensa);
 		
 		System.out.println("Etiquetas: ");
@@ -78,9 +79,7 @@ public class Pregunta extends Comun_Res_Preg {
         System.out.println("Respuestas: ");
         for(int i=0;i<respuestas.size();i++){
             respuestas.get(i).mostrarComun();
-        }
-		
-		
+        }	
 	}
 
 }

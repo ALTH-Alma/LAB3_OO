@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Comun_Res_Preg {
 	
-	private int id;
+	protected int id;
 	private String autor;
 	private String contenido;
 	private Date fechaDePublicacion;
@@ -89,14 +89,13 @@ public class Comun_Res_Preg {
 	
 	public void mostrarComun() {
 		
-		System.out.println("ID: "+id);
 		System.out.println("Contenido:\n "+contenido);
 		System.out.println("Autor: "+autor);
 		System.out.println("Fcha publicación: "+fechaDePublicacion);
 		System.out.println("Estado: "+estado);
 		System.out.println("Votos a favor: "+votosAFavor);
 		System.out.println("Votos en contra: "+votosEnContra);
-		System.out.println("Número de reportes: "+reportes+"\n");
+		System.out.println("Número de reportes: "+reportes);
 		
 	}
 
