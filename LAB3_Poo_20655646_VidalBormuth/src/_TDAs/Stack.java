@@ -36,7 +36,6 @@ public class Stack {
 		this.idStack = idStack;
 	}
 
-	
 	public Usuario getUsuarioActivo() {
 		return usuarioActivo;
 	}
@@ -105,7 +104,7 @@ public class Stack {
 		return null;
 	}
 	
-	private Usuario getUser(String newUserName) {
+	private Usuario getUserStack(String newUserName) {
 		
 		for(Usuario user: usuarios) {
 			if(user.getName().equals(newUserName)) {
@@ -115,23 +114,27 @@ public class Stack {
 		return null;
 	}
 	
-	public void register(String newUserName, String newPass) {
-		Usuario user = getUser(newUserName);
+	public boolean register(String newUserName, String newPass) {
+		Usuario user = getUserStack(newUserName);
 		if(user == null) {
 			Usuario newUser = new Usuario(newUserName, newPass);
 			usuarios.add(newUser);
+			return true;
+		}else {
+			System.out.println("Nombre de usuario existentente");
+			return false;
 		}
 	}
 	
 	public void login(String userName, String userPass) {
-		Usuario user = getUser(userName);
+		Usuario user = getUserStack(userName);
 		if(user == null) {
 			System.out.println("Nombre de usuario inexistente");
 		}
 		else if(user.getPass().equals(userPass) && usuarioActivo == null) {
-			usuarioActivo = user;
-			System.out.println("Se inicio sesion");
-		}else {
+			usuarioActivo = user; System.out.println("Se inicio sesion");
+		}
+		else {
 		System.out.println("Contraseña incorrecta");
 		}
 	}
@@ -156,7 +159,41 @@ public class Stack {
 			System.out.println("No existe usuario activo para realizar la pregunta.");
 		}
 	}
+
 	
-
-
+	public boolean mostrarPreguntasStack() {
+		
+		System.out.println("Preguntas del Stack Overflow"+idStack);
+		if(preguntas != null) {
+	        for(Pregunta pregunta: preguntas){
+				pregunta.mostrarComun();
+	        }
+	        return true;
+		}else {
+		System.out.println("Aun no existen preguntas en este stack");
+		return false;
+		}
+	}
+	
+	public Pregunta getPreguntaStack_ID(int idPregunta) {
+		
+        for(Pregunta pregunta: preguntas){
+        	int idActual = pregunta.getId();
+			if(idActual == idPregunta) {
+				return pregunta;
+			}
+        }
+        return null;
+	}
+	
+	
+	public void answer(int idPregunta, String contenidoRespuesta) {
+        Respuesta newRespuesta= new Respuesta(usuarioActivo.getName(), contenidoRespuesta);
+        getPreguntaStack_ID(idPregunta).getRespuestas().add(newRespuesta);
+        System.out.println("Ha realizado una respuesta a la pregunta "+idPregunta);
+	}
+	
+	public void reward(int idPregunta, int montoRecompensa) {
+		
+	}
 }
