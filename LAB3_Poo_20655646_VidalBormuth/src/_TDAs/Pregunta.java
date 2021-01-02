@@ -8,8 +8,9 @@ public class Pregunta extends Comun_Res_Preg {
 	
 	private static int count2 = 0;
 	private String titulo;
-	private String autorRecompensa;
 	private int montoRecompensa;
+	private List<String> ofertores;
+	private List<Integer> montosOfrecidosRetenidos;
 	private List<Etiqueta> etiquetas;
 	private List<Respuesta> respuestas;
 
@@ -19,7 +20,6 @@ public class Pregunta extends Comun_Res_Preg {
 		this.estado = "Abierta";
 		this.etiquetas = etiquetas;
 		respuestas = new ArrayList<Respuesta>();
-		autorRecompensa = "No existe ofertor aun";
 		montoRecompensa = 0;
 		setId(++count2);
 	}
@@ -30,14 +30,6 @@ public class Pregunta extends Comun_Res_Preg {
 
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
-	}
-
-	public String getAutorRecompensa() {
-		return autorRecompensa;
-	}
-
-	public void setAutorRecompensa(String autorRecompensa) {
-		this.autorRecompensa = autorRecompensa;
 	}
 
 	public int getMontoRecompensa() {
@@ -69,7 +61,7 @@ public class Pregunta extends Comun_Res_Preg {
 		System.out.println("ID Pregunta: "+id);
 		System.out.println("Titulo: "+titulo);
 		super.mostrarComun();
-		System.out.println("Recompensa: "+autorRecompensa+"\n"+montoRecompensa);
+		System.out.println("Recompensa ofrecida: "+montoRecompensa+"puntos.");
 		
 		System.out.println("Etiquetas: ");
         for(int i=0;i<etiquetas.size();i++){
@@ -82,4 +74,15 @@ public class Pregunta extends Comun_Res_Preg {
         }	
 	}
 
+	
+	public void setRecompensa(int montoNewRecompensa, String autorRecompensa) {
+		if(ofertores == null) {
+			ofertores = new ArrayList<>();
+			montosOfrecidosRetenidos = new ArrayList<>();
+		}
+		ofertores.add(autorRecompensa);
+		montosOfrecidosRetenidos.add(montoNewRecompensa);
+		montoRecompensa = montoRecompensa + montoNewRecompensa;
+			
+	}
 }

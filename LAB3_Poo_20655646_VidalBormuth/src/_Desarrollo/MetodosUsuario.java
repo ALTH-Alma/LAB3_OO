@@ -11,6 +11,8 @@ import _TDAs.Respuesta;
 import _TDAs.SistemaStack;
 import _TDAs.Stack;
 import _TDAs.Pregunta;
+import _Menus.M1;
+import _Menus.MenuMetodos;
 
 public class MetodosUsuario {
 
@@ -107,7 +109,7 @@ public class MetodosUsuario {
 			System.out.println("2. Iniciar sesión.");
 			System.out.println("3. Salir del programa.");
 			
-			System.out.println("Ingrese la opción deseada:");
+			System.out.println("Ingrese el número la opción deseada:");
 			opcion= sn.nextInt();
 			
 			String userName = "";
@@ -145,6 +147,8 @@ public class MetodosUsuario {
 					
 			        System.out.println("____________________________________________");
 			        stackSelecionado.mostrarStack();
+			        M1 menu = new M1();
+			        menu.menuMetodosStack(stackSelecionado);
 					break;
 				
 				case 3:

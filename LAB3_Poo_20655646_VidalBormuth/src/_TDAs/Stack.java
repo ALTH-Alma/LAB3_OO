@@ -84,20 +84,20 @@ public class Stack {
 		System.out.println("Etiquetas en Stack Overflow"+idStack);
 		if(etiquetas != null) {
 	        for(int i=0;i<etiquetas.size();i++){
-				System.out.println("Etiqueta"+i+":");
+				System.out.println("Etiqueta "+(i+1)+":");
 	            etiquetas.get(i).mostrarEtiqueta();
 	        }
 	
 	        List<Etiqueta> newList; newList = new ArrayList<>();
 	        Scanner seleccion = new Scanner(System.in);
 	        int numero = 0;
-
-	        System.out.println("Por favor introduzca el o los números correspondientes a la etiqueta que desea agregar. Para finalizar la eleccion introduzca un -1");
-
-	        do {			
-	        	numero = seleccion.nextInt();
-	        	newList.add(etiquetas.get(numero));
-	        } while (numero!=-1);
+	        
+	        System.out.println("Por favor introduzca el o los números correspondientes a la etiqueta que desea agregar. Para finalizar la eleccion introduzca un 0");
+        	numero = seleccion.nextInt();
+	        do {	
+	        	newList.add(etiquetas.get(numero-1));
+	        	numero = seleccion.nextInt();	
+	        }while(numero != 0);
 	        
 	        return newList;
 		}
@@ -162,17 +162,21 @@ public class Stack {
 
 	
 	public boolean mostrarPreguntasStack() {
-		
+		int mostradas = 0;
 		System.out.println("Preguntas del Stack Overflow"+idStack);
 		if(preguntas != null) {
 	        for(Pregunta pregunta: preguntas){
-				pregunta.mostrarComun();
+				if(pregunta.getEstado().equals("Abierta")) {
+					pregunta.mostrarComun();
+					mostradas++;
+				}
 	        }
-	        return true;
-		}else {
-		System.out.println("Aun no existen preguntas en este stack");
-		return false;
+	        if(mostradas>0) {
+	        return true;	
+	        }
 		}
+		System.out.println("No existen preguntas abiertas en este stack");
+		return false;
 	}
 	
 	public Pregunta getPreguntaStack_ID(int idPregunta) {
@@ -194,6 +198,12 @@ public class Stack {
 	}
 	
 	public void reward(int idPregunta, int montoRecompensa) {
-		
+		int reputacionUA = usuarioActivo.getReputacion();
+		if(reputacionUA >= montoRecompensa) {
+			getPreguntaStack_ID(idPregunta).setRecompensa(montoRecompensa, usuarioActivo.getName());
+			reputacionUA = reputacionUA - montoRecompensa;
+			usuarioActivo.setReputacion(reputacionUA);
+			System.out.println("Ha ofrecido una recompensa de "+montoRecompensa+"puntos por la pregunta"+idPregunta);
+		}
 	}
 }
