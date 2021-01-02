@@ -17,7 +17,7 @@ public class M1 implements MenuMetodos{
 	public void menuMetodosStack(Stack stack) {
 
 		String nameUser = stack.getUsuarioActivo().getName();
-		Scanner sn = new Scanner(System.in);
+		Scanner sc = new Scanner(System.in);
 		boolean salir = false;
 		int opcion;
 
@@ -34,7 +34,7 @@ public class M1 implements MenuMetodos{
 			System.out.println("6. Cerrar sesión.");
 			
 			System.out.println("Ingrese la opción deseada:");
-			opcion= sn.nextInt();
+			opcion= sc.nextInt();
 			
 			String aux1 = "";
 			String aux2 = "";
@@ -55,9 +55,9 @@ public class M1 implements MenuMetodos{
 					aux2 = aux.nextLine ();
 					System.out.println("Por favor escoja etiquetas para su pregunta:");
 					etiquetasPregunta = stack.mostrarYSeleccionarEtiquetasStack();
-
+					
 					stack.ask(aux1, aux2, etiquetasPregunta);
-
+					
 			        System.out.println("____________________________________________");
 			        stack.mostrarStack();
 					break;
@@ -65,23 +65,24 @@ public class M1 implements MenuMetodos{
 				case 2:
 			        System.out.println("____________________________________________");
 			        stack.mostrarStack();
-			        
+			     
 			        confirma = stack.mostrarPreguntasStack();
 					if(confirma) {
-						String aux4 ="";
+						
 				        System.out.println("Por favor introduzca el ID correspondiente a la pregunta que desea responder."); 
 				        idAux = aux.nextInt();
 				        System.out.println("Por favor ingrese el contenido de la respuesta."); 
-				        aux4 = aux_1.nextLine();
-				        stack.answer(idAux, aux4);
+				        aux1 = aux_1.nextLine();
+				        stack.answer(idAux, aux1);
 				        
 					}else { System.out.println("No se puede realizar esta accion por el momento.");}
+			
 					break;
 					
 				case 3:
 			        System.out.println("____________________________________________");
 			        stack.mostrarStack();
-			        
+		 
 			        confirma = stack.mostrarPreguntasStack();
 					if(confirma) {
 	
@@ -92,7 +93,7 @@ public class M1 implements MenuMetodos{
 				        stack.reward(idAux, auxN);
 				        
 					}else { System.out.println("No se puede realizar esta accion por el momento.");}
-					
+	
 			        System.out.println("____________________________________________");
 			        stack.mostrarStack();
 					break;
@@ -101,16 +102,16 @@ public class M1 implements MenuMetodos{
 				case 6:
 			        System.out.println("____________________________________________");
 			        stack.mostrarStack();
-			        
 					System.out.println("Por favor ingrese nombre:");
 			        aux1 = aux.nextLine ();
 					System.out.println("Por favor ingrese contraseña:");
 					aux2 = aux.nextLine ();
 			        stack.logout(aux1, aux2);
-					
+			
 					salir = true;
-			}
 					
+			}
+
 		}while(!salir);
 	}
 }

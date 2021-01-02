@@ -61,7 +61,7 @@ public class Pregunta extends Comun_Res_Preg {
 		System.out.println("ID Pregunta: "+id);
 		System.out.println("Titulo: "+titulo);
 		super.mostrarComun();
-		System.out.println("Recompensa ofrecida: "+montoRecompensa+"puntos.");
+		System.out.println("Recompensa ofrecida: "+montoRecompensa+" puntos.");
 		
 		System.out.println("Etiquetas: ");
         for(int i=0;i<etiquetas.size();i++){

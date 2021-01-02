@@ -30,6 +30,8 @@ public class SistemaStack {
 		System.out.println("Ingrese el número del stack que prefiera");
 		opcionStack= sn.nextInt();
 		return stacks.get(opcionStack-1);
+		
+		
 	}
 
 }

@@ -92,6 +92,8 @@ public class MetodosUsuario {
         s1.mostrarStack();
         s1.logout("Alma", "Alma1234");
         s1.mostrarStack();
+        s2.getUsuarios().get(0).setReputacion(100);
+        s2.getUsuarios().get(1).setReputacion(230);
         
         List<Stack> sistemaS;
         sistemaS= new ArrayList<>(); sistemaS.add(s1); sistemaS.add(s2);
