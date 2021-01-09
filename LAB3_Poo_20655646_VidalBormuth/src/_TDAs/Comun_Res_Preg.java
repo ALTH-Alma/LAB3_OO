@@ -1,14 +1,16 @@
 package _TDAs;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Comun_Res_Preg {
 	
-	protected int id;
+	private int id;
 	private String autor;
 	private String contenido;
-	private Date fechaDePublicacion;
-	protected String estado;
+	private String fechaDePublicacion;
+	private String estado;
 	private int votosAFavor;
 	private int votosEnContra;
 	private int reportes;
@@ -17,11 +19,30 @@ public class Comun_Res_Preg {
 		
 		this.autor = autor;
 		this.contenido = contenido;
-		fechaDePublicacion = new Date();
+		DateFormat df = new SimpleDateFormat("dd,MM,yyyy HH:mm");
+		Date fecha= new Date();
+		fechaDePublicacion = df.format(fecha);
 		this.votosAFavor = 0;
 		this.votosEnContra = 0;
 		this.reportes = 0;
 	}
+	
+	
+	public Comun_Res_Preg(String autor, String contenido, String estado,
+			int votosAFavor, int votosEnContra, int reportes) {
+		
+		this.autor = autor;
+		this.contenido = contenido;
+		DateFormat df = new SimpleDateFormat("dd,MM,yyyy HH:mm");
+		Date fecha= new Date();
+		fechaDePublicacion = df.format(fecha);
+		this.estado = estado;
+		this.votosAFavor = votosAFavor;
+		this.votosEnContra = votosEnContra;
+		this.reportes = reportes;
+	}
+
+
 
 	public int getId() {
 		return id;
@@ -47,11 +68,11 @@ public class Comun_Res_Preg {
 		this.contenido = contenido;
 	}
 
-	public Date getFechaDePublicacion() {
+	public String getFechaDePublicacion() {
 		return fechaDePublicacion;
 	}
 
-	public void setFechaDePublicacion(Date fechaDePublicacion) {
+	public void setFechaDePublicacion(String fechaDePublicacion) {
 		this.fechaDePublicacion = fechaDePublicacion;
 	}
 
@@ -89,14 +110,10 @@ public class Comun_Res_Preg {
 	
 	public void mostrarComun() {
 		
-		System.out.println("Contenido:\n "+contenido);
-		System.out.println("Autor: "+autor);
-		System.out.println("Fcha publicación: "+fechaDePublicacion);
-		System.out.println("Estado: "+estado);
-		System.out.println("Votos a favor: "+votosAFavor);
-		System.out.println("Votos en contra: "+votosEnContra);
-		System.out.println("Número de reportes: "+reportes);
+		System.out.println("Contenido:\n "+contenido+"\nAutor: "+autor+"\nFecha publicación: "+fechaDePublicacion+
+				"\nEstado: "+estado+"\nVotos a favor: "+votosAFavor+"\nVotos en contra: "+votosEnContra+"\nNúmero de reportes: "+reportes);
 		
 	}
+	
 
 }

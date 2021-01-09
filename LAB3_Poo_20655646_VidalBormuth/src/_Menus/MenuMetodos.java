@@ -4,6 +4,6 @@ import _TDAs.Stack;
 
 public interface MenuMetodos {
 	
-	public void menuMetodosStack(Stack stack);
+	void menuMetodosStack(Stack stack);
 
 }

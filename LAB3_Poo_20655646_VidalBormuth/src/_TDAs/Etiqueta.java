@@ -30,9 +30,7 @@ public class Etiqueta {
 	}
 	
 	public void mostrarEtiqueta() {
-		System.out.println(name+":");
-		System.out.println(descripcion+"\n");
+		System.out.println(name+": "+descripcion+"\n");
 	}
 	
-
 }

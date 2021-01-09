@@ -8,23 +8,15 @@ public class Stack implements IMostrarEtiqueta {
 	
 	private static int count3 = 0;
 	private int idStack;
-	private Usuario usuarioActivo;
-	private List<Usuario> usuarios;
+	private Usuarios usuarios;
 	private Preguntas preguntas;
 	private List<Etiqueta> etiquetas;
 	
-	public Stack(List<Usuario> usuarios, Preguntas preguntas, List<Etiqueta> etiquetas) {
-		this.usuarioActivo = null;
+	public Stack(Usuarios usuarios, Preguntas preguntas, List<Etiqueta> etiquetas) {
 		this.usuarios = usuarios;
 		this.preguntas = preguntas;
 		this.etiquetas = etiquetas;
 		setIdStack(++count3);
-	}
-	
-	public Stack(Usuario usuarioA, List<Usuario> usuarios, Preguntas preguntas) {
-		this.usuarioActivo = usuarioA;
-		this.usuarios = usuarios;
-		this.preguntas = preguntas;
 	}
 
 	
@@ -36,19 +28,11 @@ public class Stack implements IMostrarEtiqueta {
 		this.idStack = idStack;
 	}
 
-	public Usuario getUsuarioActivo() {
-		return usuarioActivo;
-	}
-
-	public void setUsuarioActivo(Usuario usuarioActivo) {
-		this.usuarioActivo = usuarioActivo;
-	}
-
-	public List<Usuario> getUsuarios() {
+	public Usuarios getUsuarios() {
 		return usuarios;
 	}
 
-	public void setUsuarios(List<Usuario> usuarios) {
+	public void setUsuarios(Usuarios usuarios) {
 		this.usuarios = usuarios;
 	}
 
@@ -62,16 +46,9 @@ public class Stack implements IMostrarEtiqueta {
 	
 	public void mostrarStack() {
 		
-		System.out.println("Stack Overflow "+idStack+":\n\n Usuario Activo:");
-		if(usuarioActivo != null) {
-			usuarioActivo.mostrarUsuario();
-		}
-		
-		System.out.println("________________Usuarios__________________");
-        for(Usuario user: usuarios){
-            user.mostrarUsuario();
-        }
-        
+		System.out.println("Stack Overflow "+idStack);
+		usuarios.mostrarUsuarioActivo();
+		usuarios.mostrarUsuarios_Todos();
 		preguntas.mostrarPreguntas_Todas();
 		
 	}
@@ -137,22 +114,13 @@ public class Stack implements IMostrarEtiqueta {
 			return null;
 		}
 	}
-	
-	private Usuario getUserStack(String newUserName) {
-		
-		for(Usuario user: usuarios) {
-			if(user.getName().equals(newUserName)) {
-				return user;
-			}
-		}
-		return null;
-	}
+
 	
 	public boolean register(String newUserName, String newPass) {
-		Usuario user = getUserStack(newUserName);
-		if(user == null) {
+		Usuario usuario = usuarios.getUser_Name(newUserName);
+		if(usuario == null) {
 			Usuario newUser = new Usuario(newUserName, newPass);
-			usuarios.add(newUser);
+			usuarios.agregarUsuario(newUser);
 			return true;
 		}else {
 			System.out.println("Nombre de usuario existentente");
@@ -161,12 +129,12 @@ public class Stack implements IMostrarEtiqueta {
 	}
 	
 	public void login(String userName, String userPass) {
-		Usuario user = getUserStack(userName);
+		Usuario user = usuarios.getUser_Name(userName);
 		if(user == null) {
 			System.out.println("Nombre de usuario inexistente");
 		}
-		else if(user.getPass().equals(userPass) && usuarioActivo == null) {
-			usuarioActivo = user; System.out.println("Se inicio sesion");
+		else if(user.getPass().equals(userPass) && usuarios.getUsuarioActivo() == null) {
+			usuarios.setUsuarioActivo(user); System.out.println("Se inicio sesion");
 		}
 		else {
 		System.out.println("Contraseña incorrecta");
@@ -175,8 +143,8 @@ public class Stack implements IMostrarEtiqueta {
 	
 	public void logout(String userName, String userPass) {
 
-		if(usuarioActivo != null && usuarioActivo.getName().equals(userName) && usuarioActivo.getPass().equals(userPass)) {
-			usuarioActivo = null;
+		if(usuarios.getUsuarioActivo() != null && usuarios.getUsuarioActivo().getName().equals(userName) && usuarios.getUsuarioActivo().getPass().equals(userPass)) {
+			usuarios.setUsuarioActivo(null);
 			System.out.println("El usuario ah cerrado sesión.");
 		}else {
 		System.out.println("No existe usuario activo para cerrar sesión.");
@@ -185,46 +153,32 @@ public class Stack implements IMostrarEtiqueta {
 	
 	public void ask(String newTitulo, String newContenido, List<Etiqueta> newEtiquetas) {
 		
-		if(usuarioActivo != null) {
-			preguntas.agregarPregunta(new Pregunta(usuarioActivo.getName(), newTitulo, newContenido, newEtiquetas));
+		if(usuarios.getUsuarioActivo() != null) {
+			preguntas.agregarPregunta(new Pregunta(usuarios.getUsuarioActivo().getName(), newTitulo, newContenido, newEtiquetas));
 			System.out.println("Se a agregado una nueva pregunta.");
 		}else {
 			System.out.println("No existe usuario activo para realizar la pregunta.");
 		}
 	}
-
 	
-	
-	public Usuario getUsuarioStack_Name(String userName) {
-		
-        for(Usuario user: usuarios){
-        	String actualName = user.getName();
-			if(actualName.equals(userName)) {
-				return user;
-				
-			}
-        }
-        return null;
-	}
-
 	public void answer(int idPregunta, String contenidoRespuesta) {
-        Respuesta newRespuesta= new Respuesta(usuarioActivo.getName(), contenidoRespuesta);
+        Respuesta newRespuesta= new Respuesta(usuarios.getUsuarioActivo().getName(), contenidoRespuesta);
         preguntas.getPreguntaStack_ID(idPregunta).getRespuestas().add(newRespuesta);
         System.out.println("Ha realizado una respuesta a la pregunta "+idPregunta);
 	}
 	
 	public void reward(int idPregunta, int montoRecompensa) {
 
-		int reputacionUA = usuarioActivo.getReputacion();
+		int reputacionUA = usuarios.getUsuarioActivo().getReputacion();
 		if(reputacionUA >= montoRecompensa) {
-			preguntas.getPreguntaStack_ID(idPregunta).setRecompensa(montoRecompensa, usuarioActivo.getName());
-			usuarioActivo.setReputacion(reputacionUA-montoRecompensa);
+			preguntas.getPreguntaStack_ID(idPregunta).getRecompensa().setRecompensa(montoRecompensa, usuarios.getUsuarioActivo().getName());
+			usuarios.getUsuarioActivo().setReputacion(reputacionUA-montoRecompensa);
 			System.out.println("Ha ofrecido una recompensa de "+montoRecompensa+"puntos por la pregunta"+idPregunta);
 		}
 		System.out.println("Reputación insufuciente para realizar esta recompensa.");
 	}
 	
-	public boolean mostrarPreguntasUsuarioActivo() {
+	public boolean mostrarPreguntasUsuarioActivo() { //Hacer un metodo mostrar preguntas usuario por nombre.
 		int mostradas = 0;
 		System.out.println("Preguntas del usuario "+usuarioActivo.getName()+":");
 		if(preguntas.existenPreguntas()) {

@@ -15,6 +15,12 @@ public class Usuario {
 		this.pass = pass;
 		this.reputacion = 0;
 	}
+	
+	public Usuario(String name, String pass, int reputacion) {
+		this.name = name;
+		this.pass = pass;
+		this.reputacion = reputacion;
+	}
 
 	//Getter y Setter para nombre de usuario.
 	public String getName() {

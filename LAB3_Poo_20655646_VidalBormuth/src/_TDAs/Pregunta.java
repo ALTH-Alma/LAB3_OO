@@ -8,38 +8,33 @@ public class Pregunta extends Comun_Res_Preg implements IMostrarEtiqueta{
 	
 	private static int count2 = 0;
 	private String titulo;
-	private int montoRecompensa;
-	private List<String> ofertores;
-	private List<Integer> montosOfrecidosRetenidos;
+	private Recompensa recompensa;
 	private List<Etiqueta> etiquetas;
 	private List<Respuesta> respuestas;
 
 	public Pregunta(String autor, String titulo, String contenido, List<Etiqueta> etiquetas) {
 		super(autor, contenido);
-		setTitulo(titulo);
+		this.titulo = titulo;
 		setEstado("Abierta.");
 		this.etiquetas = etiquetas;
 		respuestas = new ArrayList<Respuesta>();
-		ofertores = new ArrayList<>();
-		montosOfrecidosRetenidos = new ArrayList<>();
-		montoRecompensa = 0;
+		recompensa = new Recompensa();
 		setId(++count2);
 	}
 
+	public Pregunta(String autor, String titulo, String contenido, List<Etiqueta> etiquetas, String estado, int votosAFavor, 
+			int votosEnContra, int reportes, Recompensa recompensa, List<Respuesta> respuestas) {
+		super(autor, contenido, estado, votosAFavor, votosEnContra, reportes);
+		this.titulo = titulo;
+		this.recompensa = recompensa;
+		this.etiquetas = etiquetas;
+		this.respuestas = respuestas;
+		setId(++count2);
+	}
+
+
 	public String getTitulo() {
 		return titulo;
-	}
-
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
-	}
-
-	public int getMontoRecompensa() {
-		return montoRecompensa;
-	}
-
-	public void setMontoRecompensa(int montoRecompensa) {
-		this.montoRecompensa = montoRecompensa;
 	}
 
 	public List<Etiqueta> getEtiquetas() {
@@ -57,7 +52,9 @@ public class Pregunta extends Comun_Res_Preg implements IMostrarEtiqueta{
 	public void setRespuestas(List<Respuesta> respuestas) {
 		this.respuestas = respuestas;
 	}
-	
+	public Recompensa getRecompensa() {
+		return recompensa;
+	}
 	@Override
 	public boolean mostrarEtiquetas() {
 		if(!etiquetas.isEmpty()) {
@@ -82,26 +79,6 @@ public class Pregunta extends Comun_Res_Preg implements IMostrarEtiqueta{
         	return false;
         }
 	}
-	
-	@Override
-	public void mostrarComun() {
-		
-		System.out.println("ID Pregunta: "+getId()+"\nTitulo: "+titulo);
-		super.mostrarComun();
-		System.out.println("Recompensa ofrecida: "+montoRecompensa+" puntos.");
-		System.out.println("----Etiquetas---- ");
-		mostrarEtiquetas();
-		System.out.println("----Respuestas---- ");
-		mostrarRespuestas();
-	}
-
-	public void setRecompensa(int montoNewRecompensa, String autorRecompensa) {
-		ofertores.add(autorRecompensa);
-		montosOfrecidosRetenidos.add(montoNewRecompensa);
-		montoRecompensa = montoRecompensa + montoNewRecompensa;
-			
-	}
-	
 	public Respuesta getRespuesta_ID(int idRespuesta) {
 		
         for(Respuesta respuesta: respuestas){
@@ -112,19 +89,20 @@ public class Pregunta extends Comun_Res_Preg implements IMostrarEtiqueta{
         }
         return null;
 	}
-
-	public int tomarRecompensa() {
-		if(ofertores.isEmpty()) {
-			return 0; //no existe recompensa.
-			
-		}else {
-			ofertores.clear();
-			montosOfrecidosRetenidos.clear();
-			int aux= montoRecompensa;
-			montoRecompensa = 0;
-			return aux;
-		}
+	
+	
+	@Override
+	public void mostrarComun() {
+		
+		System.out.println("ID Pregunta: "+getId()+"\nTitulo: "+titulo);
+		super.mostrarComun();
+		System.out.println("Recompensa ofrecida: "+recompensa.getMontoRecompensa()+" puntos.");
+		System.out.println("----Etiquetas---- ");
+		mostrarEtiquetas();
+		System.out.println("----Respuestas---- ");
+		mostrarRespuestas();
 	}
+
 	
 }
 

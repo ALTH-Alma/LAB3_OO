@@ -55,10 +55,7 @@ public class Preguntas{
 			for(Pregunta pregunta: preguntas){
             pregunta.mostrarComun();
             }
-		}else {
-			System.out.println("Aun no existen preguntas.");
-		}
-        
+		}else {System.out.println("Aun no existen preguntas.");}  
 	}
 	
 	public Pregunta getPreguntaStack_ID(int idPregunta) {
