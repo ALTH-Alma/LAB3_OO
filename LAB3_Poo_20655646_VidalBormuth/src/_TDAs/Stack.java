@@ -4,16 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Stack {
+public class Stack implements IMostrarEtiqueta {
 	
 	private static int count3 = 0;
 	private int idStack;
 	private Usuario usuarioActivo;
 	private List<Usuario> usuarios;
-	private List<Pregunta> preguntas;
+	private Preguntas preguntas;
 	private List<Etiqueta> etiquetas;
 	
-	public Stack(List<Usuario> usuarios, List<Pregunta> preguntas, List<Etiqueta> etiquetas) {
+	public Stack(List<Usuario> usuarios, Preguntas preguntas, List<Etiqueta> etiquetas) {
 		this.usuarioActivo = null;
 		this.usuarios = usuarios;
 		this.preguntas = preguntas;
@@ -21,7 +21,7 @@ public class Stack {
 		setIdStack(++count3);
 	}
 	
-	public Stack(Usuario usuarioA, List<Usuario> usuarios, List<Pregunta> preguntas) {
+	public Stack(Usuario usuarioA, List<Usuario> usuarios, Preguntas preguntas) {
 		this.usuarioActivo = usuarioA;
 		this.usuarios = usuarios;
 		this.preguntas = preguntas;
@@ -52,11 +52,11 @@ public class Stack {
 		this.usuarios = usuarios;
 	}
 
-	public List<Pregunta> getPreguntas() {
+	public Preguntas getPreguntas() {
 		return preguntas;
 	}
 
-	public void setPreguntas(List<Pregunta> preguntas) {
+	public void setPreguntas(Preguntas preguntas) {
 		this.preguntas = preguntas;
 	}
 	
@@ -68,40 +68,74 @@ public class Stack {
 		}
 		
 		System.out.println("________________Usuarios__________________");
-        for(int i=0;i<usuarios.size();i++){
-            usuarios.get(i).mostrarUsuario();
+        for(Usuario user: usuarios){
+            user.mostrarUsuario();
         }
         
-		System.out.println("_________________Preguntas__________________");
-        for(int i=0;i<preguntas.size();i++){
-            preguntas.get(i).mostrarComun();
-        }
+		preguntas.mostrarPreguntas_Todas();
 		
 	}
 	
-	public List<Etiqueta> mostrarYSeleccionarEtiquetasStack() {
-		
-		System.out.println("Etiquetas en Stack Overflow"+idStack);
-		if(etiquetas != null) {
+	@Override
+	public boolean mostrarEtiquetas() {
+		if(!etiquetas.isEmpty()) {
 	        for(int i=0;i<etiquetas.size();i++){
-				System.out.println("Etiqueta "+(i+1)+":");
+				System.out.println((i+1)+")");
 	            etiquetas.get(i).mostrarEtiqueta();
 	        }
-	
-	        List<Etiqueta> newList; newList = new ArrayList<>();
-	        Scanner seleccion = new Scanner(System.in);
-	        int numero = 0;
-	        
-	        System.out.println("Por favor introduzca el o los números correspondientes a la etiqueta que desea agregar. Para finalizar la eleccion introduzca un 0");
-        	numero = seleccion.nextInt();
-	        do {	
-	        	newList.add(etiquetas.get(numero-1));
-	        	numero = seleccion.nextInt();	
-	        }while(numero != 0);
-	        
-	        return newList;
+	        return true;
+		}else {
+			System.out.println("No existen etiquetas.");
+			return false;
 		}
-		return null;
+	}	
+	
+	public void agregarEtiquetaPorConsola(){
+		
+		try(Scanner seleccion = new Scanner(System.in)){
+			String aux = "";
+			String aux1 = "";
+
+			System.out.println("Por favor introduzca el nombre de la nueva etiqueta:");
+			aux = seleccion.nextLine();
+			System.out.println("Por favor introduzca la descripción de la nueva etiqueta:");
+			aux1 = seleccion.nextLine();
+			Etiqueta newEtiqueta = new Etiqueta(aux, aux1);
+			etiquetas.add(newEtiqueta);
+
+		}
+	}
+	
+	public List<Etiqueta> mostrarYSeleccionarEtiquetasStack() {
+		try (Scanner seleccion = new Scanner(System.in);){
+		
+			System.out.println("Etiquetas en Stack Overflow "+idStack);
+			boolean aux = mostrarEtiquetas();
+			int auxV = 1;
+
+			do {
+				System.out.println("¿Desea agregar una nueva etiqueta en el stack antes de crear una pregunta?. "
+						+ "Si su respuesta es 'si' por favor introduzca un 1. Si es 'no' introduzca un 2.");
+				auxV = seleccion.nextInt();
+				Etiqueta etiqueta = agregarEtiquetaPorConsola();
+			}while(auxV == 1);
+			
+			if(aux) {
+	
+		        List<Etiqueta> newList; newList = new ArrayList<>();
+		        Scanner seleccion = new Scanner(System.in);
+		        
+		        System.out.println("Por favor introduzca el o los números correspondientes a la etiqueta que desea agregar. Para finalizar la eleccion introduzca un 0");
+	        	int numero = seleccion.nextInt();
+		        do {	
+		        	newList.add(this.etiquetas.get(numero-1));
+		        	numero = seleccion.nextInt();	
+		        }while(numero != 0);
+		        
+		        return newList;
+			}
+			return null;
+		}
 	}
 	
 	private Usuario getUserStack(String newUserName) {
@@ -152,8 +186,7 @@ public class Stack {
 	public void ask(String newTitulo, String newContenido, List<Etiqueta> newEtiquetas) {
 		
 		if(usuarioActivo != null) {
-			Pregunta pregunta = new Pregunta(usuarioActivo.getName(), newTitulo, newContenido, newEtiquetas);
-			preguntas.add(pregunta);
+			preguntas.agregarPregunta(new Pregunta(usuarioActivo.getName(), newTitulo, newContenido, newEtiquetas));
 			System.out.println("Se a agregado una nueva pregunta.");
 		}else {
 			System.out.println("No existe usuario activo para realizar la pregunta.");
@@ -161,12 +194,42 @@ public class Stack {
 	}
 
 	
-	public boolean mostrarPreguntasStack() {
+	
+	public Usuario getUsuarioStack_Name(String userName) {
+		
+        for(Usuario user: usuarios){
+        	String actualName = user.getName();
+			if(actualName.equals(userName)) {
+				return user;
+				
+			}
+        }
+        return null;
+	}
+
+	public void answer(int idPregunta, String contenidoRespuesta) {
+        Respuesta newRespuesta= new Respuesta(usuarioActivo.getName(), contenidoRespuesta);
+        preguntas.getPreguntaStack_ID(idPregunta).getRespuestas().add(newRespuesta);
+        System.out.println("Ha realizado una respuesta a la pregunta "+idPregunta);
+	}
+	
+	public void reward(int idPregunta, int montoRecompensa) {
+
+		int reputacionUA = usuarioActivo.getReputacion();
+		if(reputacionUA >= montoRecompensa) {
+			preguntas.getPreguntaStack_ID(idPregunta).setRecompensa(montoRecompensa, usuarioActivo.getName());
+			usuarioActivo.setReputacion(reputacionUA-montoRecompensa);
+			System.out.println("Ha ofrecido una recompensa de "+montoRecompensa+"puntos por la pregunta"+idPregunta);
+		}
+		System.out.println("Reputación insufuciente para realizar esta recompensa.");
+	}
+	
+	public boolean mostrarPreguntasUsuarioActivo() {
 		int mostradas = 0;
-		System.out.println("Preguntas del Stack Overflow"+idStack);
-		if(preguntas != null) {
-	        for(Pregunta pregunta: preguntas){
-				if(pregunta.getEstado().equals("Abierta")) {
+		System.out.println("Preguntas del usuario "+usuarioActivo.getName()+":");
+		if(preguntas.existenPreguntas()) {
+	        for(Pregunta pregunta: preguntas.getPreguntas()){
+				if(pregunta.getEstado().equals("Abierta") && pregunta.getAutor().equals(usuarioActivo.getName())) {
 					pregunta.mostrarComun();
 					mostradas++;
 				}
@@ -175,42 +238,24 @@ public class Stack {
 	        return true;	
 	        }
 		}
-		System.out.println("No existen preguntas abiertas en este stack");
+		System.out.println("No existen preguntas abiertas en este stack\n");
 		return false;
 	}
 	
-	public Pregunta getPreguntaStack_ID(int idPregunta) {
-		
-        for(Pregunta pregunta: preguntas){
-        	int idActual = pregunta.getId();
-			if(idActual == idPregunta) {
-				return pregunta;
-			}
-        }
-        return null;
-	}
-	
-	
-	public void answer(int idPregunta, String contenidoRespuesta) {
-        Respuesta newRespuesta= new Respuesta(usuarioActivo.getName(), contenidoRespuesta);
-        getPreguntaStack_ID(idPregunta).getRespuestas().add(newRespuesta);
-        System.out.println("Ha realizado una respuesta a la pregunta "+idPregunta);
-	}
-	
-	public void reward(int idPregunta, int montoRecompensa) {
+	public void accept(int idPregunta, int idRespuesta) {
 
-		int reputacionUA = usuarioActivo.getReputacion();
-		if(reputacionUA >= montoRecompensa) {
-			getPreguntaStack_ID(idPregunta).setRecompensa(montoRecompensa, usuarioActivo.getName());
-			reputacionUA = reputacionUA - montoRecompensa;
-			usuarioActivo.setReputacion(reputacionUA);
-			System.out.println("Ha ofrecido una recompensa de "+montoRecompensa+"puntos por la pregunta"+idPregunta);
+		Pregunta pregunta = preguntas.getPreguntaStack_ID(idPregunta);
+		Respuesta respuesta = pregunta.getRespuesta_ID(idRespuesta);
+
+		if(respuesta != null) {
+			respuesta.setEstado("Aceptada.");
+
+			Usuario autorRespuesta = getUsuarioStack_Name(respuesta.getAutor());
+			autorRespuesta.mostrarUsuario();
+			autorRespuesta.agregarPuntosAReputacion((14+pregunta.tomarRecompensa()));
+			usuarioActivo.agregarPuntosAReputacion(2);
 		}
-		System.out.println("Reputación insufuciente para realizar esta recompensa.");
 	}
 
-	public void accept() {
-		
-	}
 }
 

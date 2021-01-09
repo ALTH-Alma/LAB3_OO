@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Pregunta extends Comun_Res_Preg {
+public class Pregunta extends Comun_Res_Preg implements IMostrarEtiqueta{
 	
 	private static int count2 = 0;
 	private String titulo;
@@ -16,10 +16,12 @@ public class Pregunta extends Comun_Res_Preg {
 
 	public Pregunta(String autor, String titulo, String contenido, List<Etiqueta> etiquetas) {
 		super(autor, contenido);
-		this.titulo = titulo;
-		this.estado = "Abierta";
+		setTitulo(titulo);
+		setEstado("Abierta.");
 		this.etiquetas = etiquetas;
 		respuestas = new ArrayList<Respuesta>();
+		ofertores = new ArrayList<>();
+		montosOfrecidosRetenidos = new ArrayList<>();
 		montoRecompensa = 0;
 		setId(++count2);
 	}
@@ -55,34 +57,74 @@ public class Pregunta extends Comun_Res_Preg {
 	public void setRespuestas(List<Respuesta> respuestas) {
 		this.respuestas = respuestas;
 	}
+	
+	@Override
+	public boolean mostrarEtiquetas() {
+		if(!etiquetas.isEmpty()) {
+	        for(Etiqueta etiqueta: etiquetas){
+	            etiqueta.mostrarEtiqueta();
+	        }
+	        return true;
+		}else {
+			System.out.println("No existen etiquetas.");
+			return false;
+		}
+	}
+	
+	public boolean mostrarRespuestas() {
+        if(!respuestas.isEmpty()) {
+	        for(Respuesta respuesta: respuestas){
+	            respuesta.mostrarComun();  
+	        }
+	        return true;
+        }else {
+        	System.out.println("Aun no existen respuestas a esta pregunta.\n");
+        	return false;
+        }
+	}
+	
 	@Override
 	public void mostrarComun() {
 		
-		System.out.println("ID Pregunta: "+id);
-		System.out.println("Titulo: "+titulo);
+		System.out.println("ID Pregunta: "+getId()+"\nTitulo: "+titulo);
 		super.mostrarComun();
 		System.out.println("Recompensa ofrecida: "+montoRecompensa+" puntos.");
-		
-		System.out.println("Etiquetas: ");
-        for(int i=0;i<etiquetas.size();i++){
-            etiquetas.get(i).mostrarEtiqueta();
-        }
-        
-        System.out.println("Respuestas: ");
-        for(int i=0;i<respuestas.size();i++){
-            respuestas.get(i).mostrarComun();
-        }	
+		System.out.println("----Etiquetas---- ");
+		mostrarEtiquetas();
+		System.out.println("----Respuestas---- ");
+		mostrarRespuestas();
 	}
 
-	
 	public void setRecompensa(int montoNewRecompensa, String autorRecompensa) {
-		if(ofertores == null) {
-			ofertores = new ArrayList<>();
-			montosOfrecidosRetenidos = new ArrayList<>();
-		}
 		ofertores.add(autorRecompensa);
 		montosOfrecidosRetenidos.add(montoNewRecompensa);
 		montoRecompensa = montoRecompensa + montoNewRecompensa;
 			
 	}
+	
+	public Respuesta getRespuesta_ID(int idRespuesta) {
+		
+        for(Respuesta respuesta: respuestas){
+        	int idActual = respuesta.getId();
+			if(idActual == idRespuesta) {
+				return respuesta;
+			}
+        }
+        return null;
+	}
+
+	public int tomarRecompensa() {
+		if(ofertores.isEmpty()) {
+			return 0; //no existe recompensa.
+			
+		}else {
+			ofertores.clear();
+			montosOfrecidosRetenidos.clear();
+			int aux= montoRecompensa;
+			montoRecompensa = 0;
+			return aux;
+		}
+	}
+	
 }
+

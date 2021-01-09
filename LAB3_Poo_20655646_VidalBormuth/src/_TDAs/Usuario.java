@@ -44,9 +44,11 @@ public class Usuario {
 	}
 	
 	public void mostrarUsuario() {
-		System.out.println("Nombre: "+name);
-		System.out.println("Contraseña: "+pass);
-		System.out.println("Reputación: "+reputacion+"\n");
+		System.out.println("Nombre: "+name+"\nContraseña: "+pass+"\nReputación: "+reputacion+"\n");
+	}
+
+	public void agregarPuntosAReputacion(int monto) {
+		reputacion = reputacion + monto;
 	}
 
 
