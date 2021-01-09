@@ -15,7 +15,6 @@ import _TDAs.Pregunta;
 import _TDAs.Preguntas;
 import _TDAs.Recompensa;
 import _Menus.M1;
-import _Menus.MenuMetodos;
 
 public class Main {
 
@@ -83,7 +82,6 @@ public class Main {
         System.out.println("____________________________________________");
         s1.login("Alma", "Alma1234");
         s1.ask("¿Funciona ask?", "Esta es la primera prueba directa para verificar el metodo ask de stack.", etiquetas1);
-
         s1.logout("Alma", "Alma1234");
 
         
