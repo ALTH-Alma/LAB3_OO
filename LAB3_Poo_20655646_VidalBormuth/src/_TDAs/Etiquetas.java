@@ -16,6 +16,9 @@ public class Etiquetas {
 		etiquetas = new ArrayList<>();
 	}
 
+	public void addEtiqueta(Etiqueta etiqueta){
+		etiquetas.add(etiqueta);
+	}
 	public List<Etiqueta> getEtiquetas() {
 		return etiquetas;
 	}
@@ -32,7 +35,7 @@ public class Etiquetas {
 	        }
 	        return true;
 		}else {
-			System.out.println("No existen etiquetas.");
+			System.out.println("No posee etiquetas.");
 			return false;
 		}
 	}
@@ -54,7 +57,7 @@ public class Etiquetas {
 		
 		Scanner seleccion = new Scanner(System.in);
 			
-		System.out.println("Etiquetas en Stack");
+		System.out.println("Etiquetas en Stack:\n");
 		mostrarEtiquetas();
 		int auxV = 0;
 			

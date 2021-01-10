@@ -39,13 +39,15 @@ public class SistemaStack {
 			int opcionStack = 0;
 			System.out.println("Por favor ingrese el número del stack al que desea acceder:");
 			opcionStack= sn.nextInt();
-			Stack seleccionado = stacks.get(opcionStack-1);
-			if(seleccionado != null) {
-				return seleccionado;
+			if(opcionStack > stacks.size()) {
+				System.out.println("#EL STACK NO EXISTE");
+				return null;
 			}
+			Stack seleccionado = stacks.get(opcionStack-1);
+			return seleccionado;
+			
 		}
-		
-		System.out.println("El stack no existe.");
+		System.out.println("\n#EL SISTEMA NO POSEE NINGUN STACK");
 		return null;	
 	}
 

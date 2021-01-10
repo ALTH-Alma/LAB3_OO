@@ -27,8 +27,10 @@ public class Usuarios {
 		this.usuarioActivo = usuarioActivo;
 	}
 	
+	
+	
 	public void mostrarUsuarioActivo() {
-		System.out.println("Usuario Activo:");
+		System.out.println("\nUsuario Activo:");
 		if(usuarioActivo != null) {
 			usuarioActivo.mostrarUsuario();
 		}else {
@@ -52,7 +54,6 @@ public class Usuarios {
 		return null;
 	}
 	
-
 	public void agregarUsuario(Usuario user) {
 		usuarios.add(user);
 	}

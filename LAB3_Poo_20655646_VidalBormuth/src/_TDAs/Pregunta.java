@@ -56,10 +56,11 @@ public class Pregunta extends Comun_Res_Preg{
 	public Recompensa getRecompensa() {
 		return recompensa;
 	}
-	
+
 	public boolean mostrarRespuestas() {
         if(!respuestas.isEmpty()) {
 	        for(Respuesta respuesta: respuestas){
+	        	System.out.println("------------------");
 	            respuesta.mostrarComun();  
 	        }
 	        return true;
@@ -69,11 +70,31 @@ public class Pregunta extends Comun_Res_Preg{
         }
 	}
 	
+	public boolean mostrarRespuestas_NoUsuario(String nameAutor) {
+		int mostrar = 0;
+        if(!respuestas.isEmpty()) {
+	        for(Respuesta respuesta: respuestas){
+	        	if(!respuesta.getAutor().equals(nameAutor)) {
+	        		System.out.println("------------------");
+	        		respuesta.mostrarComun(); 
+	        		mostrar ++;
+	        	}
+	        }
+	        if(mostrar != 0) {
+	        	return true;
+	        }
+	        return false;
+        }else {
+        	System.out.println("No hay respuestas para votar.\n");
+        	return false;
+        }
+	}
+	
+	
 	public Respuesta getRespuesta_ID(int idRespuesta) {
 		
         for(Respuesta respuesta: respuestas){
-        	int idActual = respuesta.getId();
-			if(idActual == idRespuesta) {
+			if(respuesta.getId() == idRespuesta) {
 				return respuesta;
 			}
         }
@@ -90,6 +111,17 @@ public class Pregunta extends Comun_Res_Preg{
 		etiquetas.mostrarEtiquetas();
 		System.out.println("----Respuestas---- ");
 		mostrarRespuestas();
+	}
+
+	public void mostrarComun(String nameAutor) {
+		
+		System.out.println("ID Pregunta: "+getId()+"\nTitulo: "+titulo);
+		super.mostrarComun();
+		System.out.println("Recompensa ofrecida: "+recompensa.getMontoRecompensa()+" puntos.");
+		System.out.println("----Etiquetas---- ");
+		etiquetas.mostrarEtiquetas();
+		System.out.println("----Respuestas---- ");
+		mostrarRespuestas_NoUsuario(nameAutor);
 	}
 
 	

@@ -33,10 +33,11 @@ public class Preguntas{
 
 	public boolean mostrarPreguntas_Abiertas() {
 		int mostradas = 0;
-		System.out.println("Preguntas del Stack Overflow");
+		System.out.println("\n_________________PREGUNTAS ABIERTAS STACK_________________\n");
 		if(!preguntas.isEmpty()) {
 	        for(Pregunta pregunta: preguntas){
 				if(pregunta.getEstado().equals("Abierta.")) {
+					System.out.println("------------------------------------------------");
 					pregunta.mostrarComun();
 					mostradas++;
 				}
@@ -45,37 +46,37 @@ public class Preguntas{
 	        return true;	
 	        }
 		}
-		System.out.println("No existen preguntas abiertas en este stack");
+		System.out.println("\nNo existen preguntas abiertas en este stack\n");
 		return false;
 	}
 	
 	public void mostrarPreguntas_Todas() {
-		System.out.println("_________________Preguntas__________________");
+		System.out.println("\n___________________PREGUNTAS STACK____________________\n");
 		if(!preguntas.isEmpty()) {
 			for(Pregunta pregunta: preguntas){
-            pregunta.mostrarComun();
+				System.out.println("------------------------------------------------");
+				pregunta.mostrarComun();
             }
-		}else {System.out.println("Aun no existen preguntas.");}  
+		}else {System.out.println("\nAun no existen preguntas.\n");}  
 	}
 	
 	public Pregunta getPreguntaStack_ID(int idPregunta) {
 		
         for(Pregunta pregunta: preguntas){
-        	int idActual = pregunta.getId();
-			if(idActual == idPregunta) {
+			if(pregunta.getId() == idPregunta) {
 				return pregunta;
 			}
         }
         return null;
 	}
 
-	
 	public boolean mostrarPreguntasAbiertas_Usuario(String nombreAutor) {
 		int mostradas = 0;
-		System.out.println("Preguntas del usuario "+nombreAutor+":");
+		System.out.println("\n____________________PREGUNTAS USUARIO "+nombreAutor+":_________________\n");
 		if(!preguntas.isEmpty()) {
 	        for(Pregunta pregunta: preguntas){
 				if(pregunta.getEstado().equals("Abierta") && pregunta.getAutor().equals(nombreAutor)) {
+					System.out.println("------------------------------------------------");
 					pregunta.mostrarComun();
 					mostradas++;
 				}
@@ -84,8 +85,26 @@ public class Preguntas{
 	        return true;	
 	        }
 		}
-		System.out.println("No existen preguntas abiertas en este stack\n");
+		System.out.println("\n#EL USUARIO NO POSEE PREGUNTAS ABIERTAS.#\n");
 		return false;
 	}
-
+	
+	public boolean mostrarPreguntasAbiertas_NoUsuario(String nombreAutor) {
+		int mostradas = 0;
+		System.out.println("\n____________________PREGUNTAS Y RESPUESTAS POR LAS QUE PUEDE VOTAR:_________________\n");
+		if(!preguntas.isEmpty()) {
+	        for(Pregunta pregunta: preguntas){
+				if(pregunta.getEstado().equals("Abierta") && !pregunta.getAutor().equals(nombreAutor)) {
+					System.out.println("------------------------------------------------");
+					pregunta.mostrarComun(nombreAutor);
+					mostradas++;
+				}
+	        }
+	        if(mostradas>0) {
+	        return true;	
+	        }
+		}
+		System.out.println("\n#NO HAY PREGUNTAS ABIERTAS PARA VOTAR.#\n");
+		return false;
+	}
 }

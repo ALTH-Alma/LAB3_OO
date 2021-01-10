@@ -15,7 +15,7 @@ public class M1{
 		String nameUser = stack.getUsuarios().getUsuarioActivo().getName();
 		boolean salir = false;
 		int opcion;
-	
+		
 		do{
 			
 			System.out.println("Menu inicial:");
@@ -28,7 +28,7 @@ public class M1{
 			System.out.println("5. Entregar un voto.");
 			System.out.println("6. Cerrar sesión.");
 				
-			System.out.println("Ingrese la opción deseada:");
+			System.out.println("Ingrese de la opción deseada:");
 			opcion= sc.nextInt();
 				
 			String aux1 = "";
@@ -42,6 +42,7 @@ public class M1{
 			switch(opcion) {
 				
 				case 1: 
+					
 					stack.getEtiquetas().agregarNuevasEtiquetas();
 					System.out.println("Por favor ingrese titulo de la pregunta:");
 			        aux1 = aux.nextLine ();
@@ -50,16 +51,13 @@ public class M1{
 					System.out.println("Por favor escoja etiquetas del stack para su pregunta:");
 					Etiquetas etiquetasPregunta = stack.getEtiquetas().seleccionarEtiquetas();
 						
-					stack.ask(aux1, aux2, etiquetasPregunta);
-						
-				    System.out.println("____________________________________________");
+					stack.ask(aux1, aux2, etiquetasPregunta);	
+					System.out.println("\n_________________Actualización___________________________");
 				    stack.mostrarStack();
 					break;
 						
 				case 2:
-				    System.out.println("____________________________________________");
-				    stack.mostrarStack();
-				     
+
 				    confirma = stack.getPreguntas().mostrarPreguntas_Abiertas();
 					if(confirma) {
 							
@@ -68,15 +66,13 @@ public class M1{
 						System.out.println("Por favor ingrese el contenido de la respuesta."); 
 					    aux1 = aux_1.nextLine();
 					    stack.answer(idAux, aux1);
-					     
-					}else { System.out.println("No se puede realizar esta accion por el momento.");}
-				
-						break;
+						System.out.println("\n_________________Actualización___________________________");
+						stack.mostrarStack(); 
+					}else { System.out.println("#NO SE PUEDE REALIZAR ACCIÓN. No existen preguntas abiertas en stack.");}
+					break;
 						
 				case 3:
-				      System.out.println("____________________________________________");
-				      stack.mostrarStack();
-			 
+					
 				      confirma = stack.getPreguntas().mostrarPreguntas_Abiertas();
 				      if(confirma) {
 		
@@ -85,16 +81,13 @@ public class M1{
 					        System.out.println("Por favor ingrese el monto de la recompensa que desea entregar."); 
 					        auxN = aux.nextInt();
 					        stack.reward(idAux, auxN);
-					        
-						}else { System.out.println("No se puede realizar esta accion por el momento.");}
-		
-				        	System.out.println("____________________________________________");
+					        System.out.println("\n_________________Actualización___________________________");
 				        	stack.mostrarStack();
-				        	break;
+					        
+						}else { System.out.println("#NO SE PUEDE REALIZAR ACCIÓN. No exiten preguntas abiertas en stack.");}
+				        break;
 						
 				case 4:
-				     System.out.println("____________________________________________");
-				     stack.mostrarStack();
 			 
 			        confirma = stack.getPreguntas().mostrarPreguntasAbiertas_Usuario(nameUser);
 					if(confirma) {
@@ -102,21 +95,15 @@ public class M1{
 				        System.out.println("Por favor introduzca el ID correspondiente a la pregunta a la que corresponde la respuesta que desea aceptar."); 
 				        idAux = aux.nextInt();
 				        System.out.println("Por favor ingrese el ID de la respuesta."); 
-				        System.out.println("AQUI MUERE");
 				        auxN = aux.nextInt();
-				        System.out.println("AQUI MUERE1");
 				        stack.accept(idAux, auxN);
-				        System.out.println("AQUI MUERE2");
-					}else { System.out.println("No se puede realizar esta accion. Usted no tiene respuestas abiertas en este momento.");}
-		
-				        System.out.println("____________________________________________");
+				        System.out.println("\n_________________Actualización___________________________");
 				        stack.mostrarStack();
-						break;
+					}else { System.out.println("\n#NO SE PUEDE REALIZAR ESTA ACCIÓN. Usted no tiene respuestas abiertas en este momento.\n");}
+					break;
 				case 5:
 						break;
 				case 6:
-			        System.out.println("____________________________________________");
-			        stack.mostrarStack();
 					System.out.println("Por favor ingrese nombre:");
 			        aux1 = aux.nextLine ();
 					System.out.println("Por favor ingrese contraseña:");
@@ -124,6 +111,13 @@ public class M1{
 			        stack.logout(aux1, aux2);
 			
 					salir = true;
+					break;
+					
+				default:
+					
+					salir = true;
+					System.out.println("OPCIÓN INVALIDA");
+						
 			}
 		}while(!salir);
 	}

@@ -15,7 +15,6 @@ public class Stack  {
 		setIdStack(++count3);
 	}
 
-	
 	public int getIdStack() {
 		return idStack;
 	}
@@ -40,16 +39,13 @@ public class Stack  {
 		this.preguntas = preguntas;
 	}
 	
-	
 	public Etiquetas getEtiquetas() {
 		return etiquetas;
 	}
 
-
 	public void setEtiquetas(Etiquetas etiquetas) {
 		this.etiquetas = etiquetas;
 	}
-
 
 	public void mostrarStack() {
 		
@@ -60,28 +56,32 @@ public class Stack  {
 		
 	}
 
+	
 	public boolean register(String newUserName, String newPass) {
 		Usuario usuario = usuarios.getUser_Name(newUserName);
 		if(usuario == null) {
-			Usuario newUser = new Usuario(newUserName, newPass);
-			usuarios.agregarUsuario(newUser);
+			usuarios.agregarUsuario(new Usuario(newUserName, newPass));
+			System.out.println("\nUsuario "+newUserName+" a sido registrado !!!");
 			return true;
 		}else {
-			System.out.println("Nombre de usuario existentente");
+			System.out.println("\nNOMBRE DE USUARIO EXISTENTE. Por favor, vuelva a intentar registrarse con un nuevo nombre de usuario.\n");
 			return false;
 		}
 	}
 	
-	public void login(String userName, String userPass) {
+	public boolean login(String userName, String userPass) {
 		Usuario user = usuarios.getUser_Name(userName);
 		if(user == null) {
-			System.out.println("Nombre de usuario inexistente");
+			System.out.println("\n#NOMBRE DE USUARIO INEXISTENTE");
+			return false;
 		}
 		else if(user.getPass().equals(userPass) && usuarios.getUsuarioActivo() == null) {
-			usuarios.setUsuarioActivo(user); System.out.println("Se inicio sesion");
+			usuarios.setUsuarioActivo(user); System.out.println("\n"+userName+" inicio sesión.");
+			return true;
 		}
 		else {
-		System.out.println("Contraseña incorrecta");
+		System.out.println("\n#CONTRASEÑA INCORRECTA");
+		return false;
 		}
 	}
 	
@@ -89,26 +89,23 @@ public class Stack  {
 
 		if(usuarios.getUsuarioActivo() != null && usuarios.getUsuarioActivo().getName().equals(userName) && usuarios.getUsuarioActivo().getPass().equals(userPass)) {
 			usuarios.setUsuarioActivo(null);
-			System.out.println("El usuario ah cerrado sesión.");
+			System.out.println("El usuario "+userName+" a cerrado sesión.");
 		}else {
-		System.out.println("No existe usuario activo para cerrar sesión.");
+		System.out.println("#NO EXISTE USUARIO ACTIVO PARA CERRAR SESIÓN.");
 		}
 	}
 	
 	public void ask(String newTitulo, String newContenido, Etiquetas newEtiquetas) {
 		
-		if(usuarios.getUsuarioActivo() != null) {
-			preguntas.agregarPregunta(new Pregunta(usuarios.getUsuarioActivo().getName(), newTitulo, newContenido, newEtiquetas));
-			System.out.println("Se a agregado una nueva pregunta.");
-		}else {
-			System.out.println("No existe usuario activo para realizar la pregunta.");
-		}
+		preguntas.agregarPregunta(new Pregunta(usuarios.getUsuarioActivo().getName(), newTitulo, newContenido, newEtiquetas));
+		System.out.println("\nSe a agregado una nueva pregunta.\n");
+
 	}
 	
 	public void answer(int idPregunta, String contenidoRespuesta) {
         Respuesta newRespuesta= new Respuesta(usuarios.getUsuarioActivo().getName(), contenidoRespuesta);
         preguntas.getPreguntaStack_ID(idPregunta).getRespuestas().add(newRespuesta);
-        System.out.println("Ha realizado una respuesta a la pregunta "+idPregunta);
+        System.out.println("\nHa entragado una respuesta a la pregunta "+idPregunta+".\n");
 	}
 	
 	public void reward(int idPregunta, int montoRecompensa) {
@@ -117,9 +114,9 @@ public class Stack  {
 		if(reputacionUA >= montoRecompensa) {
 			preguntas.getPreguntaStack_ID(idPregunta).getRecompensa().setRecompensa(montoRecompensa, usuarios.getUsuarioActivo().getName());
 			usuarios.getUsuarioActivo().setReputacion(reputacionUA-montoRecompensa);
-			System.out.println("Ha ofrecido una recompensa de "+montoRecompensa+"puntos por la pregunta"+idPregunta);
+			System.out.println("\nHa ofrecido una recompensa de "+montoRecompensa+" puntos por la pregunta "+idPregunta+" !!!");
 		}else {
-			System.out.println("Reputación insufuciente para realizar esta recompensa.");
+			System.out.println("\n#REPUTACIÓN INSUFICIENTE. No puede ofrecer esta recompensa.");
 		}
 		
 	}
@@ -127,17 +124,22 @@ public class Stack  {
 	public void accept(int idPregunta, int idRespuesta) {
 
 		Pregunta pregunta = preguntas.getPreguntaStack_ID(idPregunta);
-		Respuesta respuesta = pregunta.getRespuesta_ID(idRespuesta);
-
-		if(respuesta != null) {
-			respuesta.setEstado("Aceptada.");
-
-			Usuario autorRespuesta = usuarios.getUser_Name(respuesta.getAutor());
-			autorRespuesta.mostrarUsuario();
-			autorRespuesta.agregarPuntosAReputacion((14+pregunta.getRecompensa().tomarRecompensa()));
-			usuarios.getUsuarioActivo().agregarPuntosAReputacion(2);
+		if(pregunta != null) {
+			Respuesta respuesta = pregunta.getRespuesta_ID(idRespuesta);
+			if(respuesta != null && respuesta.getEstado().equals("Pendiente.")) {
+				respuesta.setEstado("Aceptada.");
+				Usuario autorRespuesta = usuarios.getUser_Name(respuesta.getAutor());
+				autorRespuesta.agregarPuntosAReputacion((15+pregunta.getRecompensa().tomarRecompensa()));
+				usuarios.getUsuarioActivo().agregarPuntosAReputacion(2);
+			}else {
+				System.out.println("\n#NO ES POSIBLE ACEPTAR");
+			}
+		}else {
+			System.out.println("\n#PREGUNTA INEXISTENTE");
 		}
+
 	}
 
+	public void vote(int id, boolean tipo, boolean )
 }
 
