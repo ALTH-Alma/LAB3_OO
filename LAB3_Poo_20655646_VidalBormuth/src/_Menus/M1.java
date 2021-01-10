@@ -1,91 +1,84 @@
 package _Menus;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
-import _TDAs.Etiqueta;
-import _TDAs.Pregunta;
-import _TDAs.Respuesta;
-import _TDAs.SistemaStack;
+import _TDAs.Etiquetas;
 import _TDAs.Stack;
-import _TDAs.Usuario;
+
 
 public class M1{
 	
 
 	public static void menuMetodosStack(Stack stack) {
 		
-		try(Scanner sc = new Scanner(System.in)){
-			
-			String nameUser = stack.getUsuarios().getUsuarioActivo().getName();
-			boolean salir = false;
-			int opcion;
+		Scanner sc = new Scanner(System.in);
+		String nameUser = stack.getUsuarios().getUsuarioActivo().getName();
+		boolean salir = false;
+		int opcion;
 	
-			do{
+		do{
+			
+			System.out.println("Menu inicial:");
+			System.out.println("Usuario registrado: "+nameUser);
+			System.out.println("Escoja su opción:");
+			System.out.println("1. Agregar una nueva pregunta.");
+			System.out.println("2. Responder pregunta.");
+			System.out.println("3. Ofrecer recompensa.");
+			System.out.println("4. Aceptar una respuesta.");
+			System.out.println("5. Entregar un voto.");
+			System.out.println("6. Cerrar sesión.");
 				
-				System.out.println("Menu inicial:");
-				System.out.println("Usuario registrado: "+nameUser);
-				System.out.println("Escoja su opción:");
-				System.out.println("1. Agregar una nueva pregunta.");
-				System.out.println("2. Responder pregunta.");
-				System.out.println("3. Ofrecer recompensa.");
-				System.out.println("4. Aceptar una respuesta.");
-				System.out.println("5. Entregar un voto.");
-				System.out.println("6. Cerrar sesión.");
+			System.out.println("Ingrese la opción deseada:");
+			opcion= sc.nextInt();
 				
-				System.out.println("Ingrese la opción deseada:");
-				opcion= sc.nextInt();
+			String aux1 = "";
+			String aux2 = "";
+			int idAux = 0;
+			int auxN = 0;
+			boolean confirma = false;
+			Scanner aux = new Scanner (System.in); 
+			Scanner aux_1 = new Scanner (System.in); 
 				
-				String aux1 = "";
-				String aux2 = "";
-				int idAux = 0;
-				int auxN = 0;
-				boolean confirma = false;
-				List<Etiqueta> etiquetasPregunta;
-				Scanner aux = new Scanner (System.in); 
-				Scanner aux_1 = new Scanner (System.in); 
+			switch(opcion) {
 				
-				switch(opcion) {
-				
-					case 1: 
+				case 1: 
+					stack.getEtiquetas().agregarNuevasEtiquetas();
+					System.out.println("Por favor ingrese titulo de la pregunta:");
+			        aux1 = aux.nextLine ();
+					System.out.println("Por favor ingrese contenido de la pregunta:");
+					aux2 = aux.nextLine ();
+					System.out.println("Por favor escoja etiquetas del stack para su pregunta:");
+					Etiquetas etiquetasPregunta = stack.getEtiquetas().seleccionarEtiquetas();
 						
-						System.out.println("Por favor ingrese titulo de la pregunta:");
-				        aux1 = aux.nextLine ();
-						System.out.println("Por favor ingrese contenido de la pregunta:");
-						aux2 = aux.nextLine ();
-						System.out.println("Por favor escoja etiquetas para su pregunta:");
-						etiquetasPregunta = stack.mostrarYSeleccionarEtiquetasStack();
+					stack.ask(aux1, aux2, etiquetasPregunta);
 						
-						stack.ask(aux1, aux2, etiquetasPregunta);
+				    System.out.println("____________________________________________");
+				    stack.mostrarStack();
+					break;
 						
-				        System.out.println("____________________________________________");
-				        stack.mostrarStack();
-						break;
-						
-					case 2:
-				        System.out.println("____________________________________________");
-				        stack.mostrarStack();
+				case 2:
+				    System.out.println("____________________________________________");
+				    stack.mostrarStack();
 				     
-				        confirma = stack.getPreguntas().mostrarPreguntas_Abiertas();
-						if(confirma) {
+				    confirma = stack.getPreguntas().mostrarPreguntas_Abiertas();
+					if(confirma) {
 							
-					        System.out.println("Por favor introduzca el ID correspondiente a la pregunta que desea responder."); 
-					        idAux = aux.nextInt();
-					        System.out.println("Por favor ingrese el contenido de la respuesta."); 
-					        aux1 = aux_1.nextLine();
-					        stack.answer(idAux, aux1);
-					        
-						}else { System.out.println("No se puede realizar esta accion por el momento.");}
+						System.out.println("Por favor introduzca el ID correspondiente a la pregunta que desea responder."); 
+						idAux = aux.nextInt();
+						System.out.println("Por favor ingrese el contenido de la respuesta."); 
+					    aux1 = aux_1.nextLine();
+					    stack.answer(idAux, aux1);
+					     
+					}else { System.out.println("No se puede realizar esta accion por el momento.");}
 				
 						break;
 						
-					case 3:
-				        System.out.println("____________________________________________");
-				        stack.mostrarStack();
+				case 3:
+				      System.out.println("____________________________________________");
+				      stack.mostrarStack();
 			 
-				        confirma = stack.getPreguntas().mostrarPreguntas_Abiertas();
-						if(confirma) {
+				      confirma = stack.getPreguntas().mostrarPreguntas_Abiertas();
+				      if(confirma) {
 		
 					        System.out.println("Por favor introduzca el ID correspondiente a la pregunta por la que desea entregar una recompensa."); 
 					        idAux = aux.nextInt();
@@ -95,46 +88,47 @@ public class M1{
 					        
 						}else { System.out.println("No se puede realizar esta accion por el momento.");}
 		
-				        System.out.println("____________________________________________");
-				        stack.mostrarStack();
-						break;
+				        	System.out.println("____________________________________________");
+				        	stack.mostrarStack();
+				        	break;
 						
-					case 4:
-				        System.out.println("____________________________________________");
-				        stack.mostrarStack();
+				case 4:
+				     System.out.println("____________________________________________");
+				     stack.mostrarStack();
 			 
-				        confirma = stack.mostrarPreguntasUsuarioActivo();
-						if(confirma) {
-		
-					        System.out.println("Por favor introduzca el ID correspondiente a la pregunta a la que corresponde la respuesta que desea aceptar."); 
-					        idAux = aux.nextInt();
-					        System.out.println("Por favor ingrese el ID de la respuesta."); 
-					        System.out.println("AQUI MUERE");
-					        auxN = aux.nextInt();
-					        System.out.println("AQUI MUERE1");
-					        stack.accept(idAux, auxN);
-					        System.out.println("AQUI MUERE2");
-						}else { System.out.println("No se puede realizar esta accion. Usted no tiene respuestas abiertas en este momento.");}
-		
-				        System.out.println("____________________________________________");
-				        stack.mostrarStack();
-						break;
-					case 5:
-						break;
-					case 6:
-				        System.out.println("____________________________________________");
-				        stack.mostrarStack();
-						System.out.println("Por favor ingrese nombre:");
-				        aux1 = aux.nextLine ();
-						System.out.println("Por favor ingrese contraseña:");
-						aux2 = aux.nextLine ();
-				        stack.logout(aux1, aux2);
-				
-						salir = true;
-						
-				}
+			        confirma = stack.getPreguntas().mostrarPreguntasAbiertas_Usuario(nameUser);
+					if(confirma) {
 	
-			}while(!salir);
-		}
+				        System.out.println("Por favor introduzca el ID correspondiente a la pregunta a la que corresponde la respuesta que desea aceptar."); 
+				        idAux = aux.nextInt();
+				        System.out.println("Por favor ingrese el ID de la respuesta."); 
+				        System.out.println("AQUI MUERE");
+				        auxN = aux.nextInt();
+				        System.out.println("AQUI MUERE1");
+				        stack.accept(idAux, auxN);
+				        System.out.println("AQUI MUERE2");
+					}else { System.out.println("No se puede realizar esta accion. Usted no tiene respuestas abiertas en este momento.");}
+		
+				        System.out.println("____________________________________________");
+				        stack.mostrarStack();
+						break;
+				case 5:
+						break;
+				case 6:
+			        System.out.println("____________________________________________");
+			        stack.mostrarStack();
+					System.out.println("Por favor ingrese nombre:");
+			        aux1 = aux.nextLine ();
+					System.out.println("Por favor ingrese contraseña:");
+					aux2 = aux.nextLine ();
+			        stack.logout(aux1, aux2);
+			
+					salir = true;
+			}
+		}while(!salir);
 	}
+	
+	
+	
+	
 }

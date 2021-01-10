@@ -35,15 +35,22 @@ public class SistemaStack {
 		
 		boolean aux = mostrarStacksSistema();
 		if(aux) {
-			try(Scanner sn = new Scanner(System.in)){
+			Scanner sn = new Scanner(System.in);
 			int opcionStack = 0;
 			System.out.println("Por favor ingrese el número del stack al que desea acceder:");
 			opcionStack= sn.nextInt();
-			return stacks.get(opcionStack-1);
+			Stack seleccionado = stacks.get(opcionStack-1);
+			if(seleccionado != null) {
+				return seleccionado;
 			}
-		}else {
-			return null;
-		}	
+		}
+		
+		System.out.println("El stack no existe.");
+		return null;	
 	}
 
+	public boolean existenStack() {
+		return (!stacks.isEmpty());
+	}
+	
 }

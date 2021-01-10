@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Pregunta extends Comun_Res_Preg implements IMostrarEtiqueta{
+public class Pregunta extends Comun_Res_Preg{
 	
 	private static int count2 = 0;
 	private String titulo;
 	private Recompensa recompensa;
-	private List<Etiqueta> etiquetas;
+	private Etiquetas etiquetas;
 	private List<Respuesta> respuestas;
 
-	public Pregunta(String autor, String titulo, String contenido, List<Etiqueta> etiquetas) {
+	public Pregunta(String autor, String titulo, String contenido, Etiquetas etiquetas) {
 		super(autor, contenido);
 		this.titulo = titulo;
 		setEstado("Abierta.");
@@ -22,7 +22,7 @@ public class Pregunta extends Comun_Res_Preg implements IMostrarEtiqueta{
 		setId(++count2);
 	}
 
-	public Pregunta(String autor, String titulo, String contenido, List<Etiqueta> etiquetas, String estado, int votosAFavor, 
+	public Pregunta(String autor, String titulo, String contenido, Etiquetas etiquetas, String estado, int votosAFavor, 
 			int votosEnContra, int reportes, Recompensa recompensa, List<Respuesta> respuestas) {
 		super(autor, contenido, estado, votosAFavor, votosEnContra, reportes);
 		this.titulo = titulo;
@@ -37,11 +37,11 @@ public class Pregunta extends Comun_Res_Preg implements IMostrarEtiqueta{
 		return titulo;
 	}
 
-	public List<Etiqueta> getEtiquetas() {
+	public Etiquetas getEtiquetas() {
 		return etiquetas;
 	}
 
-	public void setEtiquetas(List<Etiqueta> etiquetas) {
+	public void setEtiquetas(Etiquetas etiquetas) {
 		this.etiquetas = etiquetas;
 	}
 
@@ -52,20 +52,9 @@ public class Pregunta extends Comun_Res_Preg implements IMostrarEtiqueta{
 	public void setRespuestas(List<Respuesta> respuestas) {
 		this.respuestas = respuestas;
 	}
+	
 	public Recompensa getRecompensa() {
 		return recompensa;
-	}
-	@Override
-	public boolean mostrarEtiquetas() {
-		if(!etiquetas.isEmpty()) {
-	        for(Etiqueta etiqueta: etiquetas){
-	            etiqueta.mostrarEtiqueta();
-	        }
-	        return true;
-		}else {
-			System.out.println("No existen etiquetas.");
-			return false;
-		}
 	}
 	
 	public boolean mostrarRespuestas() {
@@ -79,6 +68,7 @@ public class Pregunta extends Comun_Res_Preg implements IMostrarEtiqueta{
         	return false;
         }
 	}
+	
 	public Respuesta getRespuesta_ID(int idRespuesta) {
 		
         for(Respuesta respuesta: respuestas){
@@ -90,7 +80,6 @@ public class Pregunta extends Comun_Res_Preg implements IMostrarEtiqueta{
         return null;
 	}
 	
-	
 	@Override
 	public void mostrarComun() {
 		
@@ -98,7 +87,7 @@ public class Pregunta extends Comun_Res_Preg implements IMostrarEtiqueta{
 		super.mostrarComun();
 		System.out.println("Recompensa ofrecida: "+recompensa.getMontoRecompensa()+" puntos.");
 		System.out.println("----Etiquetas---- ");
-		mostrarEtiquetas();
+		etiquetas.mostrarEtiquetas();
 		System.out.println("----Respuestas---- ");
 		mostrarRespuestas();
 	}

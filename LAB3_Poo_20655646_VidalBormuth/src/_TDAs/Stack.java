@@ -1,18 +1,14 @@
 package _TDAs;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-
-public class Stack implements IMostrarEtiqueta {
+public class Stack  {
 	
 	private static int count3 = 0;
 	private int idStack;
 	private Usuarios usuarios;
 	private Preguntas preguntas;
-	private List<Etiqueta> etiquetas;
+	private Etiquetas etiquetas;
 	
-	public Stack(Usuarios usuarios, Preguntas preguntas, List<Etiqueta> etiquetas) {
+	public Stack(Usuarios usuarios, Preguntas preguntas, Etiquetas etiquetas) {
 		this.usuarios = usuarios;
 		this.preguntas = preguntas;
 		this.etiquetas = etiquetas;
@@ -44,6 +40,17 @@ public class Stack implements IMostrarEtiqueta {
 		this.preguntas = preguntas;
 	}
 	
+	
+	public Etiquetas getEtiquetas() {
+		return etiquetas;
+	}
+
+
+	public void setEtiquetas(Etiquetas etiquetas) {
+		this.etiquetas = etiquetas;
+	}
+
+
 	public void mostrarStack() {
 		
 		System.out.println("Stack Overflow "+idStack);
@@ -52,70 +59,7 @@ public class Stack implements IMostrarEtiqueta {
 		preguntas.mostrarPreguntas_Todas();
 		
 	}
-	
-	@Override
-	public boolean mostrarEtiquetas() {
-		if(!etiquetas.isEmpty()) {
-	        for(int i=0;i<etiquetas.size();i++){
-				System.out.println((i+1)+")");
-	            etiquetas.get(i).mostrarEtiqueta();
-	        }
-	        return true;
-		}else {
-			System.out.println("No existen etiquetas.");
-			return false;
-		}
-	}	
-	
-	public void agregarEtiquetaPorConsola(){
-		
-		try(Scanner seleccion = new Scanner(System.in)){
-			String aux = "";
-			String aux1 = "";
 
-			System.out.println("Por favor introduzca el nombre de la nueva etiqueta:");
-			aux = seleccion.nextLine();
-			System.out.println("Por favor introduzca la descripción de la nueva etiqueta:");
-			aux1 = seleccion.nextLine();
-			Etiqueta newEtiqueta = new Etiqueta(aux, aux1);
-			etiquetas.add(newEtiqueta);
-
-		}
-	}
-	
-	public List<Etiqueta> mostrarYSeleccionarEtiquetasStack() {
-		try (Scanner seleccion = new Scanner(System.in);){
-		
-			System.out.println("Etiquetas en Stack Overflow "+idStack);
-			boolean aux = mostrarEtiquetas();
-			int auxV = 1;
-
-			do {
-				System.out.println("¿Desea agregar una nueva etiqueta en el stack antes de crear una pregunta?. "
-						+ "Si su respuesta es 'si' por favor introduzca un 1. Si es 'no' introduzca un 2.");
-				auxV = seleccion.nextInt();
-				Etiqueta etiqueta = agregarEtiquetaPorConsola();
-			}while(auxV == 1);
-			
-			if(aux) {
-	
-		        List<Etiqueta> newList; newList = new ArrayList<>();
-		        Scanner seleccion = new Scanner(System.in);
-		        
-		        System.out.println("Por favor introduzca el o los números correspondientes a la etiqueta que desea agregar. Para finalizar la eleccion introduzca un 0");
-	        	int numero = seleccion.nextInt();
-		        do {	
-		        	newList.add(this.etiquetas.get(numero-1));
-		        	numero = seleccion.nextInt();	
-		        }while(numero != 0);
-		        
-		        return newList;
-			}
-			return null;
-		}
-	}
-
-	
 	public boolean register(String newUserName, String newPass) {
 		Usuario usuario = usuarios.getUser_Name(newUserName);
 		if(usuario == null) {
@@ -151,7 +95,7 @@ public class Stack implements IMostrarEtiqueta {
 		}
 	}
 	
-	public void ask(String newTitulo, String newContenido, List<Etiqueta> newEtiquetas) {
+	public void ask(String newTitulo, String newContenido, Etiquetas newEtiquetas) {
 		
 		if(usuarios.getUsuarioActivo() != null) {
 			preguntas.agregarPregunta(new Pregunta(usuarios.getUsuarioActivo().getName(), newTitulo, newContenido, newEtiquetas));
@@ -178,24 +122,6 @@ public class Stack implements IMostrarEtiqueta {
 		System.out.println("Reputación insufuciente para realizar esta recompensa.");
 	}
 	
-	public boolean mostrarPreguntasUsuarioActivo() { //Hacer un metodo mostrar preguntas usuario por nombre.
-		int mostradas = 0;
-		System.out.println("Preguntas del usuario "+usuarioActivo.getName()+":");
-		if(preguntas.existenPreguntas()) {
-	        for(Pregunta pregunta: preguntas.getPreguntas()){
-				if(pregunta.getEstado().equals("Abierta") && pregunta.getAutor().equals(usuarioActivo.getName())) {
-					pregunta.mostrarComun();
-					mostradas++;
-				}
-	        }
-	        if(mostradas>0) {
-	        return true;	
-	        }
-		}
-		System.out.println("No existen preguntas abiertas en este stack\n");
-		return false;
-	}
-	
 	public void accept(int idPregunta, int idRespuesta) {
 
 		Pregunta pregunta = preguntas.getPreguntaStack_ID(idPregunta);
@@ -204,10 +130,10 @@ public class Stack implements IMostrarEtiqueta {
 		if(respuesta != null) {
 			respuesta.setEstado("Aceptada.");
 
-			Usuario autorRespuesta = getUsuarioStack_Name(respuesta.getAutor());
+			Usuario autorRespuesta = usuarios.getUser_Name(respuesta.getAutor());
 			autorRespuesta.mostrarUsuario();
-			autorRespuesta.agregarPuntosAReputacion((14+pregunta.tomarRecompensa()));
-			usuarioActivo.agregarPuntosAReputacion(2);
+			autorRespuesta.agregarPuntosAReputacion((14+pregunta.getRecompensa().tomarRecompensa()));
+			usuarios.getUsuarioActivo().agregarPuntosAReputacion(2);
 		}
 	}
 

@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import _TDAs.Etiqueta;
+import _TDAs.Etiquetas;
 import _TDAs.Respuesta;
 import _TDAs.SistemaStack;
 import _TDAs.Stack;
@@ -16,7 +17,7 @@ import _TDAs.Preguntas;
 import _TDAs.Recompensa;
 import _Menus.M1;
 
-public class Main {
+public class MetodosUsuarios {
 
 	public static void main(String[] args) {
 		
@@ -37,7 +38,7 @@ public class Main {
 		
 		List<Etiqueta> etiquetas1;
 		etiquetas1 = new ArrayList<Etiqueta>(); etiquetas1.add(et1); etiquetas1.add(et2); etiquetas1.add(et3);
-		
+		Etiquetas etiquetas2 = new Etiquetas(etiquetas1);
         
         Respuesta res1 = new Respuesta("Ana", "Esta es una respuesta del stack.", "Pendiente", 10, 5, 1);
         Respuesta res2 = new Respuesta("Sam", "Esta es una respuesta de prueba.", "Aceptada", 20, 3, 0);
@@ -61,28 +62,18 @@ public class Main {
 		Recompensa rec1 = new Recompensa();
 		rec.setRecompensa(10, "Sam");
 		
-        Pregunta preg1 = new Pregunta("Eva", "¿Pregunta del stack 1?","Esta pregunta es una pregunta de relleno.", etiquetas1, "Abierta", 10, 4, 1, rec, respuestas1);
-        Pregunta preg2 = new Pregunta("Sam", "¿Pregunta del stack 2?","Esta pregunta es una pregunta.", etiquetas1, "Abierta", 5, 3, 2, rec, respuestas2);
-        Pregunta preg3 = new Pregunta("Pedro", "¿Pregunta del stack 3?","Esta pregunta es de pedro.", etiquetas1, "Cerrada", 20, 1, 1, rec1, respuestas3);
-        Pregunta preg4 = new Pregunta("Eva", "¿Pregunta del stack 4?","Esta pregunta pregunta algo.", etiquetas1, "Abierta", 12, 1, 0, rec1, respuestas4);
-        Pregunta preg5 = new Pregunta("Sam", "¿pregunta del stack 5?", "Esta pregunta es otra pregunta", etiquetas1, "Abierta", 0, 0, 0, rec, respuestas5);
+        Pregunta preg1 = new Pregunta("Eva", "¿Pregunta del stack 1?","Esta pregunta es una pregunta de relleno.", etiquetas2, "Abierta", 10, 4, 1, rec, respuestas1);
+        Pregunta preg2 = new Pregunta("Sam", "¿Pregunta del stack 2?","Esta pregunta es una pregunta.", etiquetas2, "Abierta", 5, 3, 2, rec, respuestas2);
+        Pregunta preg3 = new Pregunta("Pedro", "¿Pregunta del stack 3?","Esta pregunta es de pedro.", etiquetas2, "Cerrada", 20, 1, 1, rec1, respuestas3);
+        Pregunta preg4 = new Pregunta("Eva", "¿Pregunta del stack 4?","Esta pregunta pregunta algo.", etiquetas2, "Abierta", 12, 1, 0, rec1, respuestas4);
+        Pregunta preg5 = new Pregunta("Sam", "¿pregunta del stack 5?", "Esta pregunta es otra pregunta", etiquetas2, "Abierta", 0, 0, 0, rec, respuestas5);
         
 		List<Pregunta> preguntas1;
 		preguntas1 = new ArrayList<>(); preguntas1.add(preg1); preguntas1.add(preg2);preguntas1.add(preg3); preguntas1.add(preg4); preguntas1.add(preg5);
 		Preguntas preguntas2 = new Preguntas(preguntas1);
 	
 		
-        Stack s1= new Stack(usuarios1, preguntas2, etiquetas1);
-
-        
-        System.out.println("____________________________________________");
-        s1.register("ana", "Pamela123");
-        
-        
-        System.out.println("____________________________________________");
-        s1.login("Alma", "Alma1234");
-        s1.ask("¿Funciona ask?", "Esta es la primera prueba directa para verificar el metodo ask de stack.", etiquetas1);
-        s1.logout("Alma", "Alma1234");
+        Stack s1= new Stack(usuarios1, preguntas2, etiquetas2);
 
         
         List<Stack> sistemaS;
@@ -104,13 +95,15 @@ public class Main {
 			System.out.println("3. Salir del programa.");
 			
 			System.out.println("Ingrese el número la opción deseada:");
+			System.out.println("Aqui muere");
 			opcion= sn.nextInt();
-			
+			System.out.println("Ingrese el número la opción deseada:");
 			String userName = "";
 			String userPass = "";
+			System.out.println("Ingrese el número la opción deseada:");
 			Scanner uName = new Scanner (System.in); 
 			Scanner uPass = new Scanner (System.in); 
-			
+			System.out.println("Ingrese el número la opción deseada:");
 			switch(opcion) {
 			
 				case 1: 

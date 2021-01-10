@@ -69,4 +69,23 @@ public class Preguntas{
         return null;
 	}
 
+	
+	public boolean mostrarPreguntasAbiertas_Usuario(String nombreAutor) {
+		int mostradas = 0;
+		System.out.println("Preguntas del usuario "+nombreAutor+":");
+		if(!preguntas.isEmpty()) {
+	        for(Pregunta pregunta: preguntas){
+				if(pregunta.getEstado().equals("Abierta") && pregunta.getAutor().equals(nombreAutor)) {
+					pregunta.mostrarComun();
+					mostradas++;
+				}
+	        }
+	        if(mostradas>0) {
+	        return true;	
+	        }
+		}
+		System.out.println("No existen preguntas abiertas en este stack\n");
+		return false;
+	}
+
 }

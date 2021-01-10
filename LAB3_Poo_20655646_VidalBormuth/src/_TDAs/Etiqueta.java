@@ -5,7 +5,7 @@ public class Etiqueta {
 	private String name;
 	private String descripcion;
 	
-	//Constructor.
+
 	public Etiqueta(String name, String descripcion) {
 		this.name = name;
 		this.descripcion = descripcion;
