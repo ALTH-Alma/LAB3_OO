@@ -118,8 +118,10 @@ public class Stack  {
 			preguntas.getPreguntaStack_ID(idPregunta).getRecompensa().setRecompensa(montoRecompensa, usuarios.getUsuarioActivo().getName());
 			usuarios.getUsuarioActivo().setReputacion(reputacionUA-montoRecompensa);
 			System.out.println("Ha ofrecido una recompensa de "+montoRecompensa+"puntos por la pregunta"+idPregunta);
+		}else {
+			System.out.println("Reputación insufuciente para realizar esta recompensa.");
 		}
-		System.out.println("Reputación insufuciente para realizar esta recompensa.");
+		
 	}
 	
 	public void accept(int idPregunta, int idRespuesta) {

@@ -95,15 +95,14 @@ public class MetodosUsuarios {
 			System.out.println("3. Salir del programa.");
 			
 			System.out.println("Ingrese el número la opción deseada:");
-			System.out.println("Aqui muere");
 			opcion= sn.nextInt();
-			System.out.println("Ingrese el número la opción deseada:");
+		
 			String userName = "";
 			String userPass = "";
-			System.out.println("Ingrese el número la opción deseada:");
+	
 			Scanner uName = new Scanner (System.in); 
 			Scanner uPass = new Scanner (System.in); 
-			System.out.println("Ingrese el número la opción deseada:");
+			
 			switch(opcion) {
 			
 				case 1: 

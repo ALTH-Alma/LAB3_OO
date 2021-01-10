@@ -61,14 +61,17 @@ public class Etiquetas {
 		System.out.println("¿Desea agregar una nueva etiqueta en el stack antes de crear una pregunta?. "
 						+ "Si su respuesta es 'si' por favor introduzca un 1. Si es 'no' introduzca un 2.");
 		auxV = seleccion.nextInt();
-		do {
+		while(auxV != 1 && auxV != 2) {
+			auxV = seleccion.nextInt();
+		}
+		while(auxV == 1) {
+			auxV = 0;
 			agregarEtiquetaPorConsola();
 			System.out.println("¿Desea agregar otra etiqueta?. Si su respuesta es 'si' por favor introduzca un 1. Si es 'no' introduzca un 2.");
 			while(auxV != 1 && auxV != 2) {
 				auxV = seleccion.nextInt();
 			}
-			
-		}while(auxV == 1);
+		}
 			
 	}
 	
@@ -82,12 +85,12 @@ public class Etiquetas {
 		newList = new ArrayList<>();
 		    
 		if(aux) {  
-		    System.out.println("Por favor introduzca el o los números de a uno, correspondientes a la etiqueta que desea agregar. Para finalizar la eleccion introduzca un 0");
+		    System.out.println("Por favor introduzca el o los números de a uno, correspondientes a la etiqueta que desea agregar. Para finalizar la elección introduzca un 0.");
 	        int numero = seleccion.nextInt();
-		    do {	
+		    while(numero != 0){	
 		       newList.add(this.etiquetas.get(numero-1));
 		       numero = seleccion.nextInt();	
-		    }while(numero != 0);
+		    }
 		}
 			
 		Etiquetas etiquetasFinal = new Etiquetas(newList);
