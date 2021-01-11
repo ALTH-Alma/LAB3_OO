@@ -97,7 +97,7 @@ public class StackService {
 		int reputacionUA = usuarioActivo.getReputacion();
 		if(reputacionUA >= montoRecompensa) {
 			Pregunta pregunta = getPregunta(idPregunta);
-			if(pregunta != null) {
+			if(pregunta != null && pregunta.getEstado().equals("Abierta.")) {
 				entregarRecompensa(pregunta, montoRecompensa, reputacionUA);
 			}else {
 				System.out.println("#ID DE PREGUNTA INCORRECTO. No se pudo ofrecer la recompensa");

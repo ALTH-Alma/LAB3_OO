@@ -114,7 +114,7 @@ public class MostrarListStackService {
 		System.out.println("\n____________________PREGUNTAS USUARIO "+nombreAutor+":_________________\n");
 		if(existenPreguntas(preguntas)) {
 	        for(Pregunta pregunta: preguntas){
-				if(pregunta.getEstado().equals("Abierta") && pregunta.getAutor().equals(nombreAutor)) {
+				if(pregunta.getEstado().equals("Abierta.") && pregunta.getAutor().equals(nombreAutor)) {
 					System.out.println("------------------------------------------------");
 					pregunta.mostrarComun();
 					mostradas++;
@@ -134,7 +134,7 @@ public class MostrarListStackService {
 		System.out.println("\n____________________PREGUNTAS Y RESPUESTAS POR LAS QUE PUEDE VOTAR:_________________\n");
 		if(existenPreguntas(preguntas)) {
 	        for(Pregunta pregunta: preguntas){
-				if(pregunta.getEstado().equals("Abierta") && !pregunta.getAutor().equals(nombreAutor)) {
+				if(pregunta.getEstado().equals("Abierta.") && !pregunta.getAutor().equals(nombreAutor)) {
 					System.out.println("------------------------------------------------");
 					pregunta.mostrarComun(nombreAutor);
 					mostradas++;
