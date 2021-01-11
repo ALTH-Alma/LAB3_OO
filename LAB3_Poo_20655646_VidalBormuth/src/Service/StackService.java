@@ -13,18 +13,21 @@ public class StackService {
 	private final Stack stack;
 	private Usuario usuarioActivo; 
 
-	public StackService(Stack stack) {
+	public StackService(Stack stack, Usuario usuarioActivo) {
 		this.stack = stack;
+		this.usuarioActivo = usuarioActivo;
 	}
 	
-	private Usuario getUser(String userName) {
-		
-		for(Usuario user: stack.getUsuarios()) {
-			if(user.getName().equals(userName)) {
-				return user;
-			}
-		}
-		return null;
+	public Usuario getUsuarioActivo() {
+		return usuarioActivo;
+	}
+
+	public void setUsuarioActivo(Usuario usuarioActivo) {
+		this.usuarioActivo = usuarioActivo;
+	}
+
+	public Stack getStack() {
+		return stack;
 	}
 	
 	private Pregunta getPregunta(int idPregunta) {
@@ -48,39 +51,8 @@ public class StackService {
 		
 	}
 
-	
-	
-	public boolean addNuevoUsuario(String newUserName, String newPass) {
 
-		if(getUser(newUserName) == null) {
-			stack.getUsuarios().add(new Usuario(newUserName, newPass));
-			System.out.println("\nUsuario "+newUserName+" a sido registrado !!!");
-			return true;
-		}else {
-			System.out.println("\nNOMBRE DE USUARIO EXISTENTE. Por favor, vuelva a intentar registrarse con un nuevo nombre de usuario.\n");
-			return false;
-		}
-	}
-	
-	
-	public boolean iniciarSesion(String userName, String userPass) {
-		Usuario user = getUser(userName);
-		if(user == null) {
-			System.out.println("\n#NOMBRE DE USUARIO INEXISTENTE");
-			return false;
-		}
-		else if(user.getPass().equals(userPass) && usuarioActivo == null) {
-			usuarioActivo = user; System.out.println("\n"+userName+" inicio sesión !!!");
-			return true;
-		}
-		else {
-		System.out.println("\n#CONTRASEÑA INCORRECTA");
-		return false;
-		}
-	}
-	
-	
-	public void cerrarSesion(String userName, String userPass) {
+	public void logout(String userName, String userPass) {
 		
 		if(usuarioActivo != null && usuarioActivo.getName().equals(userName) && usuarioActivo.getPass().equals(userPass)) {
 			usuarioActivo = null;
@@ -91,7 +63,7 @@ public class StackService {
 	}
 	
 	
-	public void preguntar(String newTitulo, String newContenido, List<Etiqueta> newEtiquetas) {
+	public void ask(String newTitulo, String newContenido, List<Etiqueta> newEtiquetas) {
 		
 		stack.getPreguntas().add(new Pregunta(usuarioActivo.getName(), newTitulo, newContenido, newEtiquetas));
 		System.out.println("\nSe a agregado una nueva pregunta.\n");
@@ -99,7 +71,7 @@ public class StackService {
 	}
 	
 	
-	public void responder(int idPregunta, String contenidoRespuesta) {
+	public void answer(int idPregunta, String contenidoRespuesta) {
         
         Pregunta pregunta = getPregunta(idPregunta);
         if(pregunta != null) {
@@ -120,7 +92,7 @@ public class StackService {
 	}
 	
 	
-	public void ofrecerRecompensa(int idPregunta, int montoRecompensa) {
+	public void reward(int idPregunta, int montoRecompensa) {
 		
 		int reputacionUA = usuarioActivo.getReputacion();
 		if(reputacionUA >= montoRecompensa) {
@@ -136,12 +108,21 @@ public class StackService {
 		
 	}
 
+	private Usuario tomarUser(String userName) {
+		
+		for(Usuario user: stack.getUsuarios()) {
+			if(user.getName().equals(userName)) {
+				return user;
+			}
+		}
+		return null;
+	}
 	
 	private void aceptarRespuesta(Respuesta respuesta, Recompensa recompensa) {
 		RecompensaService rs = new RecompensaService(recompensa);
 		if(respuesta != null && respuesta.getEstado().equals("Pendiente.")) {
 			respuesta.setEstado("Aceptada.");
-			getUser(respuesta.getAutor()).agregarPuntosAReputacion((15+rs.entregarRecompensa()));
+			tomarUser(respuesta.getAutor()).agregarPuntosAReputacion((15+rs.entregarRecompensa()));
 			usuarioActivo.agregarPuntosAReputacion(2);
 			System.out.println("\nSe ha aceptado la respuesta "+respuesta.getId()+".");
 		}else {
@@ -150,7 +131,7 @@ public class StackService {
 	}
 	
 	
-	public void aceptar(int idPregunta, int idRespuesta) {
+	public void accept(int idPregunta, int idRespuesta) {
 
 		Pregunta pregunta = getPregunta(idPregunta);
 		if(pregunta != null && pregunta.getEstado().equals("Abierta.")) {
