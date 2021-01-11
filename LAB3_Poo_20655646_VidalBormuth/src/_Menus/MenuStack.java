@@ -2,7 +2,7 @@ package _Menus;
 
 import java.util.Scanner;
 
-import _TDAs.Etiquetas;
+
 import _TDAs.Stack;
 
 

@@ -64,34 +64,30 @@ public class Recompensa {
 	public List<Integer> getMontosOfrecidosRetenidos() {
 		return montosOfrecidosRetenidos;
 	}
-
-	/**
-	 * Aumenta una recompensa, incrementanda el monto total con el monto de la nueva recompensa, una el monto a la lista de montos retenidos
-	 * y agrega el nombre del usuario que realiza la nueva recompensa en el lista de ofertores.
-	 * @param montoNewRecompensa Monto de la nueva recompensa a agregar a la recompensa actual. 
-	 * @param autorRecompensa Nombre del autor de esta nueva recompensa. 
-	 */
-	public void aumentarRecompensa(int montoNewRecompensa, String autorRecompensa) {
-		ofertores.add(autorRecompensa); //Agrega el nombre del ofertor en la lista de ofertores.
-		montosOfrecidosRetenidos.add(montoNewRecompensa); //Agrega la nueva recompensa a la lista de montos retenidos. 
-		montoRecompensa = montoRecompensa + montoNewRecompensa;	//Incrementa el monto total de la recompensa. 
-	}
+	
 	
 	/**
-	 * Entrega una recompensa, entregando el monto total, eliminando los montos retenidos de la lista de montos y los 
-	 * nombres de los ofertores de la lista de ofertores. La recompensa se vacia, por lo tanto, monto total es igual a 0. 
-	 * @return El monto total de la recompensa. 
+	 * Permite modificar el monto total de la recompensa. 
+	 * @param montoRecompensa Nuevo monto de recompensa. 
 	 */
-	public int entregarRecompensa() {
-		if(ofertores.isEmpty() || ofertores == null){
-			return 0; //Si no existe una lista de ofertores, entonces no existe recompensa, montoTotal = 0.
-		}else { //Sino
-			ofertores.clear(); //Se eliminan nombre de ofertores.
-			montosOfrecidosRetenidos.clear(); //Se eliminan montos retenidos.
-			int aux= montoRecompensa;
-			montoRecompensa = 0;
-			return aux; //Se entrega y vacia el monto total de la recompensa.
-		}
+	public void setMontoRecompensa(int montoRecompensa) {
+		this.montoRecompensa = montoRecompensa;
+	}
+
+	/**
+	 * Permite modificar las lista de ofertores de la recompensa. 
+	 * @param ofertores Nueva lista de nombres de los ofertores. 
+	 */
+	public void setOfertores(List<String> ofertores) {
+		this.ofertores = ofertores;
+	}
+
+	/**
+	 * Permite modificar la lista de montos ofrecidos de la recompensa.
+	 * @param montosOfrecidosRetenidos Nueva lista de montos ofrecidos. 
+	 */
+	public void setMontosOfrecidosRetenidos(List<Integer> montosOfrecidosRetenidos) {
+		this.montosOfrecidosRetenidos = montosOfrecidosRetenidos;
 	}
 	
 }

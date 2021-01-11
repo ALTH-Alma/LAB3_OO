@@ -62,6 +62,7 @@ public class StackService {
 		}
 	}
 	
+	
 	public boolean iniciarSesion(String userName, String userPass) {
 		Usuario user = getUser(userName);
 		if(user == null) {
@@ -78,6 +79,7 @@ public class StackService {
 		}
 	}
 	
+	
 	public void cerrarSesion(String userName, String userPass) {
 		
 		if(usuarioActivo != null && usuarioActivo.getName().equals(userName) && usuarioActivo.getPass().equals(userPass)) {
@@ -88,12 +90,14 @@ public class StackService {
 		}
 	}
 	
+	
 	public void preguntar(String newTitulo, String newContenido, List<Etiqueta> newEtiquetas) {
 		
 		stack.getPreguntas().add(new Pregunta(usuarioActivo.getName(), newTitulo, newContenido, newEtiquetas));
 		System.out.println("\nSe a agregado una nueva pregunta.\n");
 
 	}
+	
 	
 	public void responder(int idPregunta, String contenidoRespuesta) {
         
@@ -106,30 +110,45 @@ public class StackService {
         }		
 	}
 	
+	
+	public void entregarRecompensa(Pregunta pregunta, int montoRecompensa, int reputacionUA) {
+		
+		RecompensaService rs = new RecompensaService(pregunta.getRecompensa());
+		rs.aumentarRecompensa(montoRecompensa, usuarioActivo.getName());
+		usuarioActivo.setReputacion(reputacionUA-montoRecompensa);
+		System.out.println("\nHa ofrecido una recompensa de "+montoRecompensa+" puntos por la pregunta "+pregunta.getId()+" !!!");
+	}
+	
+	
 	public void ofrecerRecompensa(int idPregunta, int montoRecompensa) {
 		
 		int reputacionUA = usuarioActivo.getReputacion();
 		if(reputacionUA >= montoRecompensa) {
-			getPregunta(idPregunta).getRecompensa().aumentarRecompensa(montoRecompensa, usuarioActivo.getName());
-			usuarioActivo.setReputacion(reputacionUA-montoRecompensa);
-			System.out.println("\nHa ofrecido una recompensa de "+montoRecompensa+" puntos por la pregunta "+idPregunta+" !!!");
+			Pregunta pregunta = getPregunta(idPregunta);
+			if(pregunta != null) {
+				entregarRecompensa(pregunta, montoRecompensa, reputacionUA);
+			}else {
+				System.out.println("#ID DE PREGUNTA INCORRECTO. No se pudo ofrecer la recompensa");
+			}
 		}else {
 			System.out.println("\n#REPUTACIÓN INSUFICIENTE. No puede ofrecer esta recompensa.");
 		}
 		
 	}
+
 	
 	private void aceptarRespuesta(Respuesta respuesta, Recompensa recompensa) {
-		
+		RecompensaService rs = new RecompensaService(recompensa);
 		if(respuesta != null && respuesta.getEstado().equals("Pendiente.")) {
 			respuesta.setEstado("Aceptada.");
-			getUser(respuesta.getAutor()).agregarPuntosAReputacion((15+recompensa.entregarRecompensa()));
+			getUser(respuesta.getAutor()).agregarPuntosAReputacion((15+rs.entregarRecompensa()));
 			usuarioActivo.agregarPuntosAReputacion(2);
 			System.out.println("\nSe ha aceptado la respuesta "+respuesta.getId()+".");
 		}else {
 			System.out.println("\n#NO ES POSIBLE ACEPTAR");
 		}
 	}
+	
 	
 	public void aceptar(int idPregunta, int idRespuesta) {
 

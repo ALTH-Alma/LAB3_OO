@@ -27,7 +27,6 @@ public class MostrarListStackService {
 	}
 	
 	
-	
 	private boolean existenRespuestas(List<Respuesta> respuestas){
 		return (!respuestas.isEmpty() && respuestas != null);
 	}
@@ -88,10 +87,11 @@ public class MostrarListStackService {
         }
 	}
 	
-	public boolean mostrarPreguntas_Abiertas() {
+	//Muestra todas las preguntas abiertas.
+	public boolean mostrarPreguntasAbiertas(List<Pregunta> preguntas) {
 		int mostradas = 0;
 		System.out.println("\n_________________PREGUNTAS ABIERTAS STACK_________________\n");
-		if(!preguntas.isEmpty()) {
+		if(existenPreguntas(preguntas)) {
 	        for(Pregunta pregunta: preguntas){
 				if(pregunta.getEstado().equals("Abierta.")) {
 					System.out.println("------------------------------------------------");
@@ -108,11 +108,11 @@ public class MostrarListStackService {
 	}
 	
 	
-
-	public boolean mostrarPreguntasAbiertas_Usuario(String nombreAutor) {
+//Muestra las preguntas abiertas de un usuario. 
+	public boolean mostrarPreguntasAbiertas(List<Pregunta> preguntas, String nombreAutor) {
 		int mostradas = 0;
 		System.out.println("\n____________________PREGUNTAS USUARIO "+nombreAutor+":_________________\n");
-		if(!preguntas.isEmpty()) {
+		if(existenPreguntas(preguntas)) {
 	        for(Pregunta pregunta: preguntas){
 				if(pregunta.getEstado().equals("Abierta") && pregunta.getAutor().equals(nombreAutor)) {
 					System.out.println("------------------------------------------------");
@@ -129,10 +129,10 @@ public class MostrarListStackService {
 	}
 	
 	
-	public boolean mostrarPreguntasAbiertas_NoUsuario(String nombreAutor) {
+	public boolean mostrarPreguntasParaVotar(List<Pregunta> preguntas, String nombreAutor) {
 		int mostradas = 0;
 		System.out.println("\n____________________PREGUNTAS Y RESPUESTAS POR LAS QUE PUEDE VOTAR:_________________\n");
-		if(!preguntas.isEmpty()) {
+		if(existenPreguntas(preguntas)) {
 	        for(Pregunta pregunta: preguntas){
 				if(pregunta.getEstado().equals("Abierta") && !pregunta.getAutor().equals(nombreAutor)) {
 					System.out.println("------------------------------------------------");

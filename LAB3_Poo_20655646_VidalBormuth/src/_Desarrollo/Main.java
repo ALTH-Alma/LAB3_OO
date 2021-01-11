@@ -1,19 +1,18 @@
 package _Desarrollo;
 
 import _TDAs.Usuario;
-import _TDAs.Usuarios;
+
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 import _TDAs.Etiqueta;
-import _TDAs.Etiquetas;
+
 import _TDAs.Respuesta;
-import _TDAs.SistemaStack;
+import Service.SistemaStack;
 import _TDAs.Stack;
 import _TDAs.Pregunta;
-import _TDAs.Preguntas;
 import _TDAs.Recompensa;
 import _Menus.MenuStack;
 
