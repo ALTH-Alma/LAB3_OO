@@ -3,7 +3,7 @@ package _TDAs;
 
 /**
  * Clase para representar usuarios en el stack.
- * Cada usuario queda determinado por un nombre, una clave, una reputación y un estado sesión (sesión activa = true o desactiva = false).
+ * Cada usuario queda determinado por un nombre, una clave y una reputación.
  * @author Alma
  */
 
@@ -12,7 +12,6 @@ public class Usuario {
 	private String name; //Nombre único del usuario.
 	private String pass; //Clave del usuario.
 	private int reputacion; //Puntos de reputación del usuario.
-	private boolean isActive; //estado de sesión, es sesión activa.
 	
 	
 	/**
@@ -24,7 +23,7 @@ public class Usuario {
 		this.name = name;
 		this.pass = pass;
 		this.reputacion = 0;
-		this.isActive = false; //El usuario se crea con sesión desactivada.
+		
 	}
 	
 	/**
@@ -37,7 +36,7 @@ public class Usuario {
 		this.name = name;
 		this.pass = pass;
 		this.reputacion = reputacion;
-		this.isActive = false; //El usuario se crea con sesión desactivada.
+		
 	}
 
 	/**
@@ -65,13 +64,11 @@ public class Usuario {
 	}
 
 	/**
-	 * Le permite al usuario con sesión activa cambiar su clave.
+	 * Le permite al usuario cambiar su clave.
 	 * @param pass Clave del usuario.
 	 */
 	public void setPass(String pass) {
-		if(this.isActive) {
-			this.pass = pass;
-		}	
+		this.pass = pass;	
 	}
 
 	/**
@@ -88,28 +85,6 @@ public class Usuario {
 	 */
 	public void setReputacion(int reputacion) {
 		this.reputacion = reputacion;
-	}
-	
-	/**
-	 * Entrega el estado de sesión del usuario.
-	 * @return Estado de sesión, true = sesión activa, false = desactiva.
-	 */
-	public boolean isActive() {
-		return isActive;
-	}
-	
-	/**
-	 * Permite activar el estado de sesión del usuario.
-	 */
-	public void setActive() {
-		this.isActive = true;
-	}
-	
-	/**
-	 * Permite desactivar el estado de sesión del usuario. 
-	 */
-	public void setDesactive() {
-		this.isActive = false;
 	}
 	
 	
@@ -131,12 +106,6 @@ public class Usuario {
 			reputacion = 0;
 		}
 	}
-
-
-
-
-
-
 
 
 }

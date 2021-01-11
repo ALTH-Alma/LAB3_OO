@@ -172,7 +172,7 @@ public class ComunResPreg {
 	
 	/**
 	 * Permite modificar la cantidad de votos en contra del objeto.
-	 * @param votosEncontra Nueva cantidad de votos en contra.
+	 * @param votosEnContra Nueva cantidad de votos en contra.
 	 */
 	public void setVotosEnContra(int votosEnContra) {
 		this.votosEnContra = votosEnContra;
