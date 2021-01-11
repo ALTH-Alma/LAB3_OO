@@ -27,9 +27,12 @@ public class Preguntas{
 		preguntas.add(pregunta);
 	}
 	
-	public boolean existenPreguntas() {
-		return preguntas.isEmpty();
-	}
+	
+	
+	
+
+	
+	
 
 	public boolean mostrarPreguntas_Abiertas() {
 		int mostradas = 0;
@@ -60,15 +63,6 @@ public class Preguntas{
 		}else {System.out.println("\nAun no existen preguntas.\n");}  
 	}
 	
-	public Pregunta getPreguntaStack_ID(int idPregunta) {
-		
-        for(Pregunta pregunta: preguntas){
-			if(pregunta.getId() == idPregunta) {
-				return pregunta;
-			}
-        }
-        return null;
-	}
 
 	public boolean mostrarPreguntasAbiertas_Usuario(String nombreAutor) {
 		int mostradas = 0;
@@ -89,19 +83,8 @@ public class Preguntas{
 		return false;
 	}
 	
-	
-	public void ask(String nombreAutor, String newTitulo, String newContenido, Etiquetas newEtiquetas) {
-		
-		preguntas.add(new Pregunta(nombreAutor, newTitulo, newContenido, newEtiquetas));
-		System.out.println("\nSe a agregado una nueva pregunta.\n");
 
-	}
-	
-	
-	
-	
-	
-	
+
 	
 	public boolean mostrarPreguntasAbiertas_NoUsuario(String nombreAutor) {
 		int mostradas = 0;

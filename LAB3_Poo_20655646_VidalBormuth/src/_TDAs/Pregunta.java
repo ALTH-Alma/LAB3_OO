@@ -3,6 +3,8 @@ package _TDAs;
 import java.util.ArrayList;
 import java.util.List;
 
+import Service.EtiquetasService;
+
 
 /**
  * Clase para representar una pregunta en el stack.
@@ -132,11 +134,13 @@ public class Pregunta extends ComunResPreg{
 	@Override
 	public void mostrarComun() {
 		
+		EtiquetasService es = new EtiquetasService(etiquetas);
+		
 		System.out.println("ID Pregunta: "+getId()+"\nTitulo: "+titulo);
 		super.mostrarComun();
 		System.out.println("Recompensa ofrecida: "+recompensa.getMontoRecompensa()+" puntos.");
 		System.out.println("----Etiquetas---- ");
-		etiquetas.mostrarEtiquetas();
+		es.mostrarEtiquetas();
 		System.out.println("----Respuestas---- ");
 		mostrarRespuestas();
 	}
@@ -181,16 +185,6 @@ public class Pregunta extends ComunResPreg{
         }
 	}
 	
-	
-	public Respuesta getRespuesta_ID(int idRespuesta) {
-		
-        for(Respuesta respuesta: respuestas){
-			if(respuesta.getId() == idRespuesta) {
-				return respuesta;
-			}
-        }
-        return null;
-	}
 	
 
 

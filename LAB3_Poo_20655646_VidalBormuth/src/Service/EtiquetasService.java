@@ -1,46 +1,41 @@
-package _TDAs;
+package Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import _TDAs.Etiqueta;
 
-public class Etiquetas {
+
+public class EtiquetasService {
 
 	private List<Etiqueta> etiquetas;
 
-	public Etiquetas(List<Etiqueta> etiquetas) {
+	public EtiquetasService(List<Etiqueta> etiquetas) {
 		this.etiquetas = etiquetas;
 	}
-	public Etiquetas() {
-		etiquetas = new ArrayList<>();
-	}
 
-	public void addEtiqueta(Etiqueta etiqueta){
-		etiquetas.add(etiqueta);
-	}
+
 	public List<Etiqueta> getEtiquetas() {
 		return etiquetas;
 	}
 
-	public void setEtiquetas(List<Etiqueta> etiquetas) {
-		this.etiquetas = etiquetas;
+	private boolean existenEtiquetas() {
+		return (!etiquetas.isEmpty() && etiquetas != null);
 	}
 	
-	public boolean mostrarEtiquetas() {
-		if(!etiquetas.isEmpty()) {
+	public void mostrarEtiquetas() {
+		if(existenEtiquetas()) {
 	        for(int i=0;i<etiquetas.size();i++){
 				System.out.println((i+1)+")");
 	            etiquetas.get(i).mostrarEtiqueta();
 	        }
-	        return true;
 		}else {
 			System.out.println("No posee etiquetas.");
-			return false;
 		}
 	}
 	
-	public void agregarEtiquetaPorConsola(){
+	private void agregarEtiquetaPorConsola(){
 		
 		Scanner seleccion = new Scanner(System.in);
 		String aux = "";
@@ -57,7 +52,7 @@ public class Etiquetas {
 		
 		Scanner seleccion = new Scanner(System.in);
 			
-		System.out.println("Etiquetas en Stack:\n");
+		System.out.println("\nEtiquetas para seleccionar:");
 		mostrarEtiquetas();
 		int auxV = 0;
 			
@@ -78,30 +73,26 @@ public class Etiquetas {
 			
 	}
 	
-	public Etiquetas seleccionarEtiquetas(){
+	public List<Etiqueta> seleccionarEtiquetas(){
 		
 		Scanner seleccion = new Scanner(System.in);
 			
 		System.out.println("Etiquetas en Stack");
-		boolean aux = mostrarEtiquetas();
-		List<Etiqueta> newList; 
-		newList = new ArrayList<>();
+		mostrarEtiquetas();
+		List<Etiqueta> newList; newList = new ArrayList<>();
 		    
-		if(aux) {  
+		if(existenEtiquetas()) {  
 		    System.out.println("Por favor introduzca el o los números de a uno, correspondientes a la etiqueta que desea agregar. Para finalizar la elección introduzca un 0.");
 	        int numero = seleccion.nextInt();
 		    while(numero != 0){	
 		       newList.add(this.etiquetas.get(numero-1));
 		       numero = seleccion.nextInt();	
 		    }
+		}else {
+			System.out.println("No pueden agregar etiquetas.");
 		}
 			
-		Etiquetas etiquetasFinal = new Etiquetas(newList);
-		return etiquetasFinal;
+		return newList;
 		
 	}
-	
-
-	
-
 }

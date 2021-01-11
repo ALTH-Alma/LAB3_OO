@@ -24,6 +24,7 @@ public class Usuario {
 		this.name = name;
 		this.pass = pass;
 		this.reputacion = 0;
+		this.isActive = false; //El usuario se crea con sesión desactivada.
 	}
 	
 	/**
@@ -36,6 +37,7 @@ public class Usuario {
 		this.name = name;
 		this.pass = pass;
 		this.reputacion = reputacion;
+		this.isActive = false; //El usuario se crea con sesión desactivada.
 	}
 
 	/**
@@ -111,16 +113,23 @@ public class Usuario {
 	}
 	
 	
-	
-	
-	
-	
+	/**
+	 * Muestra un usuario.
+	 */
 	public void mostrarUsuario() {
 		System.out.println("Nombre: "+name+"\nContraseña: "+pass+"\nReputación: "+reputacion+"\n");
 	}
 
+	
+	/**
+	 * Agrega un monto a la reputacion
+	 * @param monto Monto a agregar (puede ser positivo o negativo).
+	 */
 	public void agregarPuntosAReputacion(int monto) {
 		reputacion = reputacion + monto;
+		if(reputacion < 0) {
+			reputacion = 0;
+		}
 	}
 
 

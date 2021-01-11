@@ -26,7 +26,7 @@ public class Recompensa {
 	 * @param montosOfrecidosRetenidos Lista de montos ofrecidos (la suma de los montos coincide con el monto tota).
 	 */
 	public Recompensa(int montoRecompensa, List<String> ofertores, List<Integer> montosOfrecidosRetenidos) {
-		super();
+
 		this.montoRecompensa = montoRecompensa;
 		this.ofertores = ofertores;
 		this.montosOfrecidosRetenidos = montosOfrecidosRetenidos;
@@ -50,27 +50,11 @@ public class Recompensa {
 	}
 	
 	/**
-	 * Permite modificar el monto total de recompensa.
-	 * @param montoRecompensa Monto total de recopensa (mayor o igual que 0).
-	 */
-	public void setMontoRecompensa(int montoRecompensa) {
-		this.montoRecompensa = montoRecompensa;
-	}
-	
-	/**
 	 * Entrega la lista con los nombres de los ofertores. 
 	 * @return Una lista con los nombres de los usuarios que ofrecieron puntos por la recompensa.
 	 */
 	public List<String> getOfertores() {
 		return ofertores;
-	}
-	
-	/**
-	 * Permite modificar la lista de ofertores.
-	 * @param ofertores Lista con nombres de ofertores. 
-	 */
-	public void setOfertores(List<String> ofertores) {
-		this.ofertores = ofertores;
 	}
 	
 	/**
@@ -80,27 +64,15 @@ public class Recompensa {
 	public List<Integer> getMontosOfrecidosRetenidos() {
 		return montosOfrecidosRetenidos;
 	}
-	
-	/**
-	 * Permite modificar la lista de montos ofrecidos.s
-	 * @param montosOfrecidosRetenidos  Lista con los montos ofrecidos.
-	 */
-	public void setMontosOfrecidosRetenidos(List<Integer> montosOfrecidosRetenidos) {
-		this.montosOfrecidosRetenidos = montosOfrecidosRetenidos;
-	}
-	
-	
-	
-	
-	
-	public void setRecompensa(int montoNewRecompensa, String autorRecompensa) {
+
+	public void aumentarRecompensa(int montoNewRecompensa, String autorRecompensa) {
 		ofertores.add(autorRecompensa);
 		montosOfrecidosRetenidos.add(montoNewRecompensa);
 		montoRecompensa = montoRecompensa + montoNewRecompensa;		
 	}
 	
-	public int tomarRecompensa() {
-		if(ofertores.isEmpty()) {
+	public int entregarRecompensa() {
+		if(ofertores.isEmpty() || ofertores == null) {
 			return 0; //no existe recompensa.
 		}else {
 			ofertores.clear();

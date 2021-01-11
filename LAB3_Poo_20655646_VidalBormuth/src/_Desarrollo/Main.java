@@ -28,9 +28,9 @@ public class Main {
 		Usuario u3= new Usuario("Sam", "010102", 60);
 		Usuario u4= new Usuario("Pedro", "P1999",70);
 	
-		List<Usuario> us1;
-		us1 = new ArrayList<>(); us1.add(u1); us1.add(u2); us1.add(u3); us1.add(u4);
-		Usuarios usuarios1 = new Usuarios(us1);
+		List<Usuario> usuarios1;
+		usuarios1 = new ArrayList<>(); usuarios1.add(u1); usuarios1.add(u2); usuarios1.add(u3); usuarios1.add(u4);
+		
 		
 		Etiqueta et1 = new Etiqueta("Java", " java es un lenguaje de programación basado en el paradigma orientado a objetos.");
 		Etiqueta et2 = new Etiqueta("Prolog", " prolog es un lenguaje de programación basado en el paradigma declarativo.");
@@ -73,10 +73,9 @@ public class Main {
         
 		List<Pregunta> preguntas1;
 		preguntas1 = new ArrayList<>(); preguntas1.add(preg1); preguntas1.add(preg2);preguntas1.add(preg3); preguntas1.add(preg4); preguntas1.add(preg5);
-		Preguntas preguntas2 = new Preguntas(preguntas1);
 	
 		
-        Stack s1= new Stack(usuarios1, preguntas2, etiquetas1);
+        Stack s1= new Stack(usuarios1, preguntas1, etiquetas1);
 
         
         List<Stack> sistemaS;
