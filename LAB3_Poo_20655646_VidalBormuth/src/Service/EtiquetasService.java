@@ -37,14 +37,14 @@ public class EtiquetasService {
 	
 	private void agregarEtiquetaPorConsola(){
 		
-		Scanner seleccion = new Scanner(System.in);
+		Scanner seleccion, auxS; seleccion = new Scanner(System.in); auxS = new Scanner(System.in);
 		String aux = "";
 		String aux1 = "";
 
 		System.out.println("Por favor introduzca el nombre de la nueva etiqueta:");
 		aux = seleccion.nextLine();
 		System.out.println("Por favor introduzca la descripción de la nueva etiqueta:");
-		aux1 = seleccion.nextLine();
+		aux1 = auxS.nextLine();
 		etiquetas.add(new Etiqueta(aux, aux1));
 	}
 	

@@ -5,17 +5,16 @@ import _TDAs.Usuario;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
+
 
 import _TDAs.Etiqueta;
-
 import _TDAs.Respuesta;
+import Service.RecompensaService;
 import Service.SistemaStack;
 import _TDAs.Stack;
 import _TDAs.Pregunta;
 import _TDAs.Recompensa;
-import _Menus.MenuStack;
-
+import _Menus.MenuInicial;
 public class Main {
 
 	public static void main(String[] args) {
@@ -58,8 +57,13 @@ public class Main {
 		respuestas4 = new ArrayList<Respuesta>(); respuestas4.add(res9); respuestas4.add(res10);
 		respuestas5 = new ArrayList<Respuesta>();
 		
-		Recompensa rec = new Recompensa();rec.setRecompensa(10, "Sam");
-		Recompensa rec1 = new Recompensa();rec1.setRecompensa(20,"Eva");
+		
+		Recompensa rec = new Recompensa();
+		RecompensaService rService = new RecompensaService(rec);
+		rService.aumentarRecompensa(10, "Sam");
+		Recompensa rec1 = new Recompensa();
+		RecompensaService rService2 = new RecompensaService(rec1);
+		rService2.aumentarRecompensa(20,"Eva");
 		Recompensa rec2 = new Recompensa();
 		Recompensa rec3 = new Recompensa();
 		Recompensa rec4 = new Recompensa();
@@ -82,81 +86,10 @@ public class Main {
         SistemaStack sistema = new SistemaStack(sistemaS);
 		
         
-        
         Stack stackSeleccionado = sistema.escogerStack();
-        if(stackSeleccionado != null) {
-	        Scanner sn = new Scanner(System.in);
-			boolean salir = false;
-			int opcion;
-			do{
-				System.out.println("\nMenu inicial:");
-				System.out.println("1. Registrarse.");
-				System.out.println("2. Iniciar sesión.");
-				System.out.println("3. Salir del programa.");
-				
-				System.out.println("\nIngrese el número la opción deseada:");
-				opcion= sn.nextInt();
-			
-				String userName = "";
-				String userPass = "";
-		
-				Scanner uName = new Scanner (System.in); 
-				Scanner uPass = new Scanner (System.in); 
-				
-				switch(opcion) {
-				
-					case 1: 
-						System.out.println("____________________________________________");
-				        stackSeleccionado.mostrarStack();
-				        
-				        stackSeleccionado.mostrarStack();
-						System.out.println("Por favor ingrese un nombre de usuario:");
-				        userName = uName.nextLine ();
-						System.out.println("Por favor ingrese una contraseña:");
-						userPass = uPass.nextLine ();
-						boolean registro = stackSeleccionado.getUsuarios().register(userName, userPass);
-						if(registro) {
-							System.out.println("____________________________________________");
-							stackSeleccionado.mostrarStack();
-							System.out.println("Si desea realizar alguna acción en el stack, por favor inicie sesión.");
-						}
-	
-						break;
-						
-					case 2:
-						System.out.println("____________________________________________");
-				        stackSeleccionado.mostrarStack();
-				        
-						System.out.println("Por favor ingrese un nombre de usuario:");
-				        userName = uName.nextLine ();
-						System.out.println("Por favor ingrese una contraseña:");
-						userPass = uPass.nextLine ();
-						boolean inicio = stackSeleccionado.getUsuarios().login(userName, userPass);
-						if(inicio) {
-							System.out.println("____________________________________________");
-							stackSeleccionado.mostrarStack();
-							MenuStack.menuMetodosStack(stackSeleccionado);
-						}
-						break;
-					
-					case 3:
-						System.out.println("____________________________________________");
-				        stackSeleccionado.mostrarStack();
-						salir = true;
-						System.out.println("\nUSTED A SALIDO DEL STACK");
-						break;
-						
-					default:
-						salir = true;
-						System.out.println("OPCIÓN INVALIDA");
-				}
-						
-			}while(!salir);
-        }else {
-        	System.exit(0);
-        }
-
+        MenuInicial menu = new MenuInicial();
+        menu.menuInicial(stackSeleccionado);
+        
 	}
-	
 
 }

@@ -11,29 +11,28 @@ import _TDAs.Etiqueta;
 public class MenuOpciones {
 	
 	private final StackService sService;
-	private final Scanner entrada;
 	
-	public MenuOpciones(StackService sService, Scanner entrada) {
+	public MenuOpciones(StackService sService) {
 		this.sService = sService;
-		this.entrada = entrada;
 	} 
 	 
 	
 	private void mostrarOpcion(String opcion) {
-		System.out.println("A escogido la opción: "+opcion);
+		System.out.println("A escogido la opción "+opcion);
 	}
 	
 	public void envolturaAsk() {
 		mostrarOpcion("1. Agregar una nueva pregunta.");
 		
 		EtiquetasService eService = new EtiquetasService(sService.getStack().getEtiquetas());
+		Scanner entrada, aux; entrada = new Scanner(System.in); aux = new Scanner(System.in);
 		String aux1 = "", aux2 = "";
 		
 		eService.agregarNuevasEtiquetas();
 		System.out.println("Por favor ingrese titulo de la pregunta:");
         aux1 = entrada.nextLine ();
 		System.out.println("Por favor ingrese contenido de la pregunta:");
-		aux2 = entrada.nextLine ();
+		aux2 = aux.nextLine ();
 		System.out.println("Por favor escoja etiquetas del stack para su pregunta:");
 		List<Etiqueta> etiquetasPregunta = eService.seleccionarEtiquetas();	
 		sService.ask(aux1, aux2, etiquetasPregunta);
@@ -46,6 +45,7 @@ public class MenuOpciones {
 		
 		MostrarListStackService mService = new MostrarListStackService();
 	    boolean confirma = mService.mostrarPreguntasAbiertas(sService.getStack().getPreguntas());
+	    Scanner entrada, aux; entrada = new Scanner(System.in); aux = new Scanner(System.in);
 	    int idAux = 0;
 	    String aux1 = "";
 		if(confirma) {
@@ -53,7 +53,7 @@ public class MenuOpciones {
 			System.out.println("Por favor introduzca el ID correspondiente a la pregunta que desea responder."); 
 			idAux = entrada.nextInt();
 			System.out.println("Por favor ingrese el contenido de la respuesta."); 
-		    aux1 = entrada.nextLine();
+		    aux1 = aux.nextLine();
 		    sService.answer(idAux, aux1);
 			System.out.println("\n_________________Actualización___________________________");
 		    sService.getStack().mostrarStack();
@@ -67,6 +67,7 @@ public class MenuOpciones {
 		
 		MostrarListStackService mService = new MostrarListStackService();
 		boolean confirma = mService.mostrarPreguntasAbiertas(sService.getStack().getPreguntas());
+		Scanner entrada = new Scanner(System.in);
 		int idAux = 0, auxN = 0; 
 		if(confirma) {
 		
@@ -88,6 +89,7 @@ public class MenuOpciones {
 		
 		MostrarListStackService mService = new MostrarListStackService();
 		boolean confirma = mService.mostrarPreguntasAbiertas(sService.getStack().getPreguntas(),sService.getUsuarioActivo().getName());
+		Scanner entrada = new Scanner(System.in);
 		int idAux = 0, auxN = 0;
 		if(confirma) {
 
@@ -105,6 +107,7 @@ public class MenuOpciones {
 	
 	public void envolturaLogout() {
 		mostrarOpcion("6. Cerrar sesión.");
+		Scanner entrada = new Scanner(System.in);
 		String aux1 = "", aux2 = "";
 		System.out.println("Por favor ingrese nombre:");
         aux1 = entrada.nextLine ();

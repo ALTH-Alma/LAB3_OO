@@ -28,7 +28,7 @@ public class MenuStack{
 			switch(opcion) {
 				
 				case 1: 
-					menuMetodos.envolturaAccept();
+					menuMetodos.envolturaAsk();
 					break;
 						
 				case 2:

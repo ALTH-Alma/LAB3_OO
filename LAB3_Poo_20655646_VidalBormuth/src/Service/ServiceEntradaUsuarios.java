@@ -3,10 +3,10 @@ package Service;
 import _TDAs.Stack;
 import _TDAs.Usuario;
 
-public class serviceEntradaUsuarios {
+public class ServiceEntradaUsuarios {
 	Stack stack;
 
-	public serviceEntradaUsuarios(Stack stack) {
+	public ServiceEntradaUsuarios(Stack stack) {
 		this.stack = stack;
 	}
 	
