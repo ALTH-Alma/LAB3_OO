@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Service.EtiquetasService;
+import Service.MostrarListStackService;
+
 
 
 /**
@@ -15,6 +17,7 @@ import Service.EtiquetasService;
  * @author Alma
  *
  */
+
 public class Pregunta extends ComunResPreg{
 	
 	private static int count2 = 0; //Incrementador del id de la clase Pregunta.
@@ -130,11 +133,14 @@ public class Pregunta extends ComunResPreg{
 	}
 	
 
-	
+	/**
+	 * Muestra una pregunta con todos sus elementos.
+	 */
 	@Override
 	public void mostrarComun() {
 		
 		EtiquetasService es = new EtiquetasService(etiquetas);
+		MostrarListStackService ms= new MostrarListStackService();
 		
 		System.out.println("ID Pregunta: "+getId()+"\nTitulo: "+titulo);
 		super.mostrarComun();
@@ -142,61 +148,27 @@ public class Pregunta extends ComunResPreg{
 		System.out.println("----Etiquetas---- ");
 		es.mostrarEtiquetas();
 		System.out.println("----Respuestas---- ");
-		mostrarRespuestas();
+		ms.mostrarRespuestas(respuestas);
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	public boolean mostrarRespuestas() {
-        if(!respuestas.isEmpty()) {
-	        for(Respuesta respuesta: respuestas){
-	        	System.out.println("------------------");
-	            respuesta.mostrarComun();  
-	        }
-	        return true;
-        }else {
-        	System.out.println("Aun no existen respuestas a esta pregunta.\n");
-        	return false;
-        }
-	}
-	
-	public boolean mostrarRespuestas_NoUsuario(String nameAutor) {
-		int mostrar = 0;
-        if(!respuestas.isEmpty()) {
-	        for(Respuesta respuesta: respuestas){
-	        	if(!respuesta.getAutor().equals(nameAutor)) {
-	        		System.out.println("------------------");
-	        		respuesta.mostrarComun(); 
-	        		mostrar ++;
-	        	}
-	        }
-	        if(mostrar != 0) {
-	        	return true;
-	        }
-	        return false;
-        }else {
-        	System.out.println("No hay respuestas para votar.\n");
-        	return false;
-        }
-	}
-	
-	
-
-
+	/**
+	 * Muestra una pregunta con todos sus elementos a excepción de sus respuestas, pues muestra solo las respuestas que no pertenecen 
+	 * al autor de la pregunta.
+	 * @param nameAutor Nombre 
+	 */
 	public void mostrarComun(String nameAutor) {
+		
+		EtiquetasService es = new EtiquetasService(etiquetas);
+		MostrarListStackService ms= new MostrarListStackService();
 		
 		System.out.println("ID Pregunta: "+getId()+"\nTitulo: "+titulo);
 		super.mostrarComun();
 		System.out.println("Recompensa ofrecida: "+recompensa.getMontoRecompensa()+" puntos.");
 		System.out.println("----Etiquetas---- ");
-		etiquetas.mostrarEtiquetas();
+		es.mostrarEtiquetas();
 		System.out.println("----Respuestas---- ");
-		mostrarRespuestas_NoUsuario(nameAutor);
+		ms.mostrarRespuestas(respuestas,nameAutor);
 	}
 
 	

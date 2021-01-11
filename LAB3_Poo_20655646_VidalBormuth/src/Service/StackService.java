@@ -50,7 +50,7 @@ public class StackService {
 
 	
 	
-	public boolean register(String newUserName, String newPass) {
+	public boolean addNuevoUsuario(String newUserName, String newPass) {
 
 		if(getUser(newUserName) == null) {
 			stack.getUsuarios().add(new Usuario(newUserName, newPass));
@@ -62,7 +62,7 @@ public class StackService {
 		}
 	}
 	
-	public boolean login(String userName, String userPass) {
+	public boolean iniciarSesion(String userName, String userPass) {
 		Usuario user = getUser(userName);
 		if(user == null) {
 			System.out.println("\n#NOMBRE DE USUARIO INEXISTENTE");
@@ -78,7 +78,7 @@ public class StackService {
 		}
 	}
 	
-	public void logout(String userName, String userPass) {
+	public void cerrarSesion(String userName, String userPass) {
 		
 		if(usuarioActivo != null && usuarioActivo.getName().equals(userName) && usuarioActivo.getPass().equals(userPass)) {
 			usuarioActivo = null;
@@ -88,14 +88,14 @@ public class StackService {
 		}
 	}
 	
-	public void ask(String newTitulo, String newContenido, List<Etiqueta> newEtiquetas) {
+	public void preguntar(String newTitulo, String newContenido, List<Etiqueta> newEtiquetas) {
 		
 		stack.getPreguntas().add(new Pregunta(usuarioActivo.getName(), newTitulo, newContenido, newEtiquetas));
 		System.out.println("\nSe a agregado una nueva pregunta.\n");
 
 	}
 	
-	public void answer(int idPregunta, String contenidoRespuesta) {
+	public void responder(int idPregunta, String contenidoRespuesta) {
         
         Pregunta pregunta = getPregunta(idPregunta);
         if(pregunta != null) {
@@ -106,7 +106,7 @@ public class StackService {
         }		
 	}
 	
-	public void reward(int idPregunta, int montoRecompensa) {
+	public void ofrecerRecompensa(int idPregunta, int montoRecompensa) {
 		
 		int reputacionUA = usuarioActivo.getReputacion();
 		if(reputacionUA >= montoRecompensa) {
@@ -131,7 +131,7 @@ public class StackService {
 		}
 	}
 	
-	public void accept(int idPregunta, int idRespuesta) {
+	public void aceptar(int idPregunta, int idRespuesta) {
 
 		Pregunta pregunta = getPregunta(idPregunta);
 		if(pregunta != null && pregunta.getEstado().equals("Abierta.")) {

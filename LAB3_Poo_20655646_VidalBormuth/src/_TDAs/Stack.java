@@ -3,6 +3,8 @@ package _TDAs;
 import java.util.ArrayList;
 import java.util.List;
 
+import Service.MostrarListStackService;
+
 /**
  * Clase que representa un stack.
  * Esta clase esta determinada por 
@@ -54,11 +56,13 @@ public class Stack  {
 	public void setEtiquetas(List<Etiqueta> etiquetas) {
 		this.etiquetas = etiquetas;
 	}
+	
+	
 	public void mostrarStack() {
-		
+		MostrarListStackService sl = new MostrarListStackService();
 		System.out.println("Stack Overflow "+idStack);
-		usuarios.mostrarUsuarios() por crear
-		preguntas.mostrarPreguntas()
+		sl.mostrarUsuarios(usuarios);
+		sl.mostrarPreguntas(preguntas);
 		
 	}
 

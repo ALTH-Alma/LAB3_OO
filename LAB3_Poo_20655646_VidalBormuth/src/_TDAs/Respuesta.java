@@ -38,7 +38,7 @@ public class Respuesta extends ComunResPreg {
 
 
 	/**
-	 *Muestra una pregunta. 
+	 *Muestra una respuesta. 
 	 */
 	@Override
 	public void mostrarComun() {
