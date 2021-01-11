@@ -34,6 +34,8 @@ public class SistemaStack {
 	public Stack escogerStack() {
 		
 		boolean aux = mostrarStacksSistema();
+	    String directorioRaiz = System.getProperty("user.dir");
+	    System.out.println("Directorio de trabajo = " + directorioRaiz);
 		if(aux) {
 			Scanner sn = new Scanner(System.in);
 			int opcionStack = 0;

@@ -6,7 +6,7 @@ import _TDAs.Etiquetas;
 import _TDAs.Stack;
 
 
-public class M1{
+public class MenuStack{
 	
 
 	public static void menuMetodosStack(Stack stack) {
@@ -51,7 +51,7 @@ public class M1{
 					System.out.println("Por favor escoja etiquetas del stack para su pregunta:");
 					Etiquetas etiquetasPregunta = stack.getEtiquetas().seleccionarEtiquetas();
 						
-					stack.ask(aux1, aux2, etiquetasPregunta);	
+					stack.getPreguntas().ask(nameUser, aux1, aux2, etiquetasPregunta);	
 					System.out.println("\n_________________Actualización___________________________");
 				    stack.mostrarStack();
 					break;
@@ -84,8 +84,8 @@ public class M1{
 					        System.out.println("\n_________________Actualización___________________________");
 				        	stack.mostrarStack();
 					        
-						}else { System.out.println("#NO SE PUEDE REALIZAR ACCIÓN. No exiten preguntas abiertas en stack.");}
-				        break;
+				      }else { System.out.println("#NO SE PUEDE REALIZAR ACCIÓN. No exiten preguntas abiertas en stack.");}
+				      break;
 						
 				case 4:
 			 
@@ -108,7 +108,7 @@ public class M1{
 			        aux1 = aux.nextLine ();
 					System.out.println("Por favor ingrese contraseña:");
 					aux2 = aux.nextLine ();
-			        stack.logout(aux1, aux2);
+			        stack.getUsuarios().logout(aux1, aux2);
 			
 					salir = true;
 					break;

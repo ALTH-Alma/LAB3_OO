@@ -89,6 +89,20 @@ public class Preguntas{
 		return false;
 	}
 	
+	
+	public void ask(String nombreAutor, String newTitulo, String newContenido, Etiquetas newEtiquetas) {
+		
+		preguntas.add(new Pregunta(nombreAutor, newTitulo, newContenido, newEtiquetas));
+		System.out.println("\nSe a agregado una nueva pregunta.\n");
+
+	}
+	
+	
+	
+	
+	
+	
+	
 	public boolean mostrarPreguntasAbiertas_NoUsuario(String nombreAutor) {
 		int mostradas = 0;
 		System.out.println("\n____________________PREGUNTAS Y RESPUESTAS POR LAS QUE PUEDE VOTAR:_________________\n");

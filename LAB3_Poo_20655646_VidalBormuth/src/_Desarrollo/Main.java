@@ -15,9 +15,9 @@ import _TDAs.Stack;
 import _TDAs.Pregunta;
 import _TDAs.Preguntas;
 import _TDAs.Recompensa;
-import _Menus.M1;
+import _Menus.MenuStack;
 
-public class MetodosUsuarios {
+public class Main {
 
 	public static void main(String[] args) {
 		
@@ -36,10 +36,10 @@ public class MetodosUsuarios {
 		Etiqueta et2 = new Etiqueta("Prolog", " prolog es un lenguaje de programación basado en el paradigma declarativo.");
 		Etiqueta et3 = new Etiqueta("Scheme", " scheme es un lenguaje de programación basado en el paradigma funcional.");
 		
-		List<Etiqueta> etiquetas1;
+		List<Etiqueta> etiquetas1, etiquetas2;
 		etiquetas1 = new ArrayList<Etiqueta>(); etiquetas1.add(et1); etiquetas1.add(et2); etiquetas1.add(et3);
-		Etiquetas etiquetas2 = new Etiquetas(etiquetas1);
-        Etiquetas etiquetas3 = new Etiquetas(); etiquetas3.addEtiqueta(et1);etiquetas3.addEtiqueta(et2);etiquetas3.addEtiqueta(et3);
+		etiquetas2 = new ArrayList<Etiqueta>(); etiquetas2.add(et1); etiquetas2.add(et2); etiquetas2.add(et3);
+       
         
         Respuesta res1 = new Respuesta("Ana", "Esta es una respuesta del stack.", "Pendiente.", 10, 5, 1);
         Respuesta res2 = new Respuesta("Sam", "Esta es una respuesta de prueba.", "Aceptada.", 20, 3, 0);
@@ -76,7 +76,7 @@ public class MetodosUsuarios {
 		Preguntas preguntas2 = new Preguntas(preguntas1);
 	
 		
-        Stack s1= new Stack(usuarios1, preguntas2, etiquetas3);
+        Stack s1= new Stack(usuarios1, preguntas2, etiquetas1);
 
         
         List<Stack> sistemaS;
@@ -116,7 +116,7 @@ public class MetodosUsuarios {
 				        userName = uName.nextLine ();
 						System.out.println("Por favor ingrese una contraseña:");
 						userPass = uPass.nextLine ();
-						boolean registro = stackSeleccionado.register(userName, userPass);
+						boolean registro = stackSeleccionado.getUsuarios().register(userName, userPass);
 						if(registro) {
 							System.out.println("____________________________________________");
 							stackSeleccionado.mostrarStack();
@@ -133,14 +133,12 @@ public class MetodosUsuarios {
 				        userName = uName.nextLine ();
 						System.out.println("Por favor ingrese una contraseña:");
 						userPass = uPass.nextLine ();
-						boolean inicio = stackSeleccionado.login(userName, userPass);
+						boolean inicio = stackSeleccionado.getUsuarios().login(userName, userPass);
 						if(inicio) {
 							System.out.println("____________________________________________");
 							stackSeleccionado.mostrarStack();
-							M1.menuMetodosStack(stackSeleccionado);
+							MenuStack.menuMetodosStack(stackSeleccionado);
 						}
-
-				       
 						break;
 					
 					case 3:

@@ -57,55 +57,15 @@ public class Stack  {
 	}
 
 	
-	public boolean register(String newUserName, String newPass) {
-		Usuario usuario = usuarios.getUser_Name(newUserName);
-		if(usuario == null) {
-			usuarios.agregarUsuario(new Usuario(newUserName, newPass));
-			System.out.println("\nUsuario "+newUserName+" a sido registrado !!!");
-			return true;
-		}else {
-			System.out.println("\nNOMBRE DE USUARIO EXISTENTE. Por favor, vuelva a intentar registrarse con un nuevo nombre de usuario.\n");
-			return false;
-		}
-	}
-	
-	public boolean login(String userName, String userPass) {
-		Usuario user = usuarios.getUser_Name(userName);
-		if(user == null) {
-			System.out.println("\n#NOMBRE DE USUARIO INEXISTENTE");
-			return false;
-		}
-		else if(user.getPass().equals(userPass) && usuarios.getUsuarioActivo() == null) {
-			usuarios.setUsuarioActivo(user); System.out.println("\n"+userName+" inicio sesión.");
-			return true;
-		}
-		else {
-		System.out.println("\n#CONTRASEÑA INCORRECTA");
-		return false;
-		}
-	}
-	
-	public void logout(String userName, String userPass) {
-
-		if(usuarios.getUsuarioActivo() != null && usuarios.getUsuarioActivo().getName().equals(userName) && usuarios.getUsuarioActivo().getPass().equals(userPass)) {
-			usuarios.setUsuarioActivo(null);
-			System.out.println("El usuario "+userName+" a cerrado sesión.");
-		}else {
-		System.out.println("#NO EXISTE USUARIO ACTIVO PARA CERRAR SESIÓN.");
-		}
-	}
-	
-	public void ask(String newTitulo, String newContenido, Etiquetas newEtiquetas) {
-		
-		preguntas.agregarPregunta(new Pregunta(usuarios.getUsuarioActivo().getName(), newTitulo, newContenido, newEtiquetas));
-		System.out.println("\nSe a agregado una nueva pregunta.\n");
-
-	}
-	
 	public void answer(int idPregunta, String contenidoRespuesta) {
-        Respuesta newRespuesta= new Respuesta(usuarios.getUsuarioActivo().getName(), contenidoRespuesta);
-        preguntas.getPreguntaStack_ID(idPregunta).getRespuestas().add(newRespuesta);
-        System.out.println("\nHa entragado una respuesta a la pregunta "+idPregunta+".\n");
+        
+        Pregunta pregunta = preguntas.getPreguntaStack_ID(idPregunta);
+        if(pregunta != null) {
+        	pregunta.getRespuestas().add(new Respuesta(usuarios.getUsuarioActivo().getName(), contenidoRespuesta));
+        	System.out.println("\nHa entragado una respuesta a la pregunta "+idPregunta+".\n");
+        }else {
+        	System.out.println("\n#NO SE A PODIDO REALIZAR LA RESPUESTA. Id inexistente.\n");
+        }		
 	}
 	
 	public void reward(int idPregunta, int montoRecompensa) {
@@ -140,6 +100,6 @@ public class Stack  {
 
 	}
 
-	public void vote(int id, boolean tipo, boolean )
+	
 }
 
